@@ -35,7 +35,7 @@ class Mapgame():
         self.Barri2=[]
         for row in range(len(self.filemap)):
             for col in range(len(self.filemap[row])):
-                if(self.filemap[row][col]==0):
+                if(self.filemap[row][col]==0 or self.filemap[row][col]==3 or self.filemap[row][col]==4):
                     temp0=Sandgrey_bg(col*50,row*50)
                     temp0.draw(screen,col,row)
                     self.Barri0.append(temp0)
@@ -47,11 +47,11 @@ class Mapgame():
                     temp2=Brick(col*50,row*50)
                     temp2.draw(screen,col,row)
                     self.Barri2.append(temp2)
-                elif(self.filemap[row][col]==3):
-                    temp0=Sandgrey_bg(col*50,row*50)
-                    temp0.draw(screen,col,row)
-                    self.Barri0.append(temp0)
-                elif(self.filemap[row][col]==4):
-                    temp0=Sandgrey_bg(col*50,row*50)
-                    temp0.draw(screen,col,row)
-                    self.Barri0.append(temp0)
+                # elif(self.filemap[row][col]==3):
+                #     temp0=Sandgrey_bg(col*50,row*50)
+                #     temp0.draw(screen,col,row)
+                #     self.Barri0.append(temp0)
+                # elif(self.filemap[row][col]==4):
+                #     temp0=Sandgrey_bg(col*50,row*50)
+                #     temp0.draw(screen,col,row)
+                #     self.Barri0.append(temp0)

@@ -62,5 +62,6 @@ while True:
     player.move(map1)
     player.update(0.01)
     if player.checkdie():
+        player.speed=0
         print("END GAME")
     draw_window()

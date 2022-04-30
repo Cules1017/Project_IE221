@@ -1,6 +1,8 @@
 import pygame
 import random
 
+from boomman import Player
+
 #with action value 1:UP 2:DOWN 3:LEFT 4:RIGHT
 class fire():
     def __init__(self,pos_x,pos_y):
@@ -11,12 +13,15 @@ class fire():
         self.HEIGHT=50
         self.speed=5
         self.action=2
-        self.damage=5
+        self.damage=50
         self.image=pygame.transform.scale(pygame.image.load('asset/enemy/Fire/F1.gif'),(self.WIDTH,self.HEIGHT))
         self.rect = self.image.get_rect()
         self.rect.topleft= [self.X,self.Y]
     
-
+    def acttack(self,player):
+        if self.rect.colliderect(player):
+            player.being_attacked(self.damage)
+            print(player.heath)
     def move(self,map):
         if self.action==1:
             self.X=self.X

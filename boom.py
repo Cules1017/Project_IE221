@@ -32,6 +32,18 @@ class Boom(pygame.sprite.Sprite):
                 player.being_attacked(20)
                 print(player.heath)
             index=self.exploy_boom.rect.collidelist(barri.Barri2)
+            index_eneLR=self.exploy_boom.rect.collidelist(barri.fireLR)
+            index_eneBT=self.exploy_boom.rect.collidelist(barri.fireBT)
+            if index_eneBT!=-1:
+                x=int(barri.fireBT[index_eneBT].X/50)
+                y=int(barri.fireBT[index_eneBT].Y/50) 
+                barri.filemap[y][x]=0
+                barri.fireBT.remove(barri.fireBT[index_eneBT])
+            if index_eneLR!=-1:
+                x=int(barri.fireLR[index_eneLR].X/50)
+                y=int(barri.fireLR[index_eneLR].Y/50) 
+                barri.filemap[y][x]=0
+                barri.fireLR.remove(barri.fireLR[index_eneLR])
             if index!=-1:
                 x=int(barri.Barri2[index].X/50)
                 y=int(barri.Barri2[index].Y/50)

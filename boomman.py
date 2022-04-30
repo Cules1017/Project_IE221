@@ -95,6 +95,7 @@ class Player(pygame.sprite.Sprite):
         #     self.Y=orig_y
         #     self.rect.topleft=[orig_x,orig_y]
         self.rect.colliderect(self)
+        enemymap=map.fireLR+map.fireBT
         for brick in map.Barri1:
             if brick.rect.colliderect(self):
                 self.X=orig_x
@@ -102,7 +103,8 @@ class Player(pygame.sprite.Sprite):
                 self.rect.topleft=[orig_x,orig_y]
         for b in self.boom:
             b.destroy(map,self)
-
+        for enemy in enemymap:
+            enemy.acttack(self)
         for brick in map.Barri2:
             if brick.rect.colliderect(self):
                 self.X=orig_x
