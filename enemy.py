@@ -13,13 +13,15 @@ class fire():
         self.HEIGHT=50
         self.speed=5
         self.action=2
-        self.damage=50
+        self.damage=5
+        self.sound_attack=pygame.mixer.Sound('asset/sound/swoosh.ogg')
         self.image=pygame.transform.scale(pygame.image.load('asset/enemy/Fire/F1.gif'),(self.WIDTH,self.HEIGHT))
         self.rect = self.image.get_rect()
         self.rect.topleft= [self.X,self.Y]
     
     def acttack(self,player):
         if self.rect.colliderect(player):
+            self.sound_attack.play()
             player.being_attacked(self.damage)
             print(player.heath)
     def move(self,map):

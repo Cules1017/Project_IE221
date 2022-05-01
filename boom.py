@@ -1,5 +1,6 @@
 import pygame
 from exploy import *
+import random
 
 class Boom(pygame.sprite.Sprite):
     def __init__(self, pos_x, pos_y):
@@ -37,17 +38,19 @@ class Boom(pygame.sprite.Sprite):
             if index_eneBT!=-1:
                 x=int(barri.fireBT[index_eneBT].X/50)
                 y=int(barri.fireBT[index_eneBT].Y/50) 
-                barri.filemap[y][x]=0
+                barri.filemap[y][x]=random.randint(5,10)
                 barri.fireBT.remove(barri.fireBT[index_eneBT])
             if index_eneLR!=-1:
                 x=int(barri.fireLR[index_eneLR].X/50)
                 y=int(barri.fireLR[index_eneLR].Y/50) 
-                barri.filemap[y][x]=0
+                barri.filemap[y][x]=random.randint(5,10)
+                print(barri.filemap[y][x])
                 barri.fireLR.remove(barri.fireLR[index_eneLR])
             if index!=-1:
                 x=int(barri.Barri2[index].X/50)
                 y=int(barri.Barri2[index].Y/50)
-                barri.filemap[y][x]=0
+                barri.filemap[y][x]=random.randint(5,10)
+                print(barri.filemap[y][x])
                 barri.Barri2.remove(barri.Barri2[index])
             self.exploy_boom=None
                 

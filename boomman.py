@@ -7,11 +7,14 @@ class Player(pygame.sprite.Sprite):
         super().__init__()
         self.X=pos_x
         self.Y=pos_y
+        self.name="Yellow"
         self.heath=100
-        self.speed=50
+        self.speed=30
         self.point=0
-        self.WIDTH=40
-        self.HEIGHT=50
+        self.WIDTH=30
+        self.HEIGHT=40
+        self.boom_num=10
+        self.boom_real=11
         self.boom=[]
         self.boom_sprite=[]
 
@@ -105,6 +108,21 @@ class Player(pygame.sprite.Sprite):
             b.destroy(map,self)
         for enemy in enemymap:
             enemy.acttack(self)
+        index_item=self.rect.collidelist(map.item)
+        if index_item!=-1:
+                x=int(map.item[index_item].X/50)
+                y=int(map.item[index_item].Y/50) 
+                map.filemap[y][x]=0
+                map.item[index_item].acttack(self)
+                map.item.remove(map.item[index_item])
+        # for it in map.item:
+        #     it.acttack(self)
+        #     if it.rect.colliderect(self):
+        #         x=int(map.it[index].X/50)
+        #         y=int(barri.Barri2[index].Y/50)
+        #         barri.filemap[y][x]=random.randint(5,7)
+        #         map.item.remove(it)
+        #         print(len(map.item))
         for brick in map.Barri2:
             if brick.rect.colliderect(self):
                 self.X=orig_x
@@ -124,13 +142,15 @@ class Player(pygame.sprite.Sprite):
     
     def put_boom(self,event):
         if event.key==pygame.K_SPACE:
-            boom=Boom(self.X,self.Y)
-            boom.sound.play()
-            boom.time = pygame.time.get_ticks()
-            self.boom.append(boom)
-            b1=pygame.sprite.Group()
-            b1.add(boom)
-            self.boom_sprite.append(b1)
+            if len(self.boom)<=self.boom_num:
+                self.boom_real-=1
+                boom=Boom(self.X-10,self.Y-5)
+                boom.sound.play()
+                boom.time = pygame.time.get_ticks()
+                self.boom.append(boom)
+                b1=pygame.sprite.Group()
+                b1.add(boom)
+                self.boom_sprite.append(b1)
     def being_attacked(self,damage):
         self.heath-=damage
     def animation(self,second):
