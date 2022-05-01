@@ -36,11 +36,13 @@ class Boom(pygame.sprite.Sprite):
             index_eneLR=self.exploy_boom.rect.collidelist(barri.fireLR)
             index_eneBT=self.exploy_boom.rect.collidelist(barri.fireBT)
             if index_eneBT!=-1:
+                player.point+=1
                 x=int(barri.fireBT[index_eneBT].X/50)
                 y=int(barri.fireBT[index_eneBT].Y/50) 
                 barri.filemap[y][x]=random.randint(5,10)
                 barri.fireBT.remove(barri.fireBT[index_eneBT])
             if index_eneLR!=-1:
+                player.point+=1
                 x=int(barri.fireLR[index_eneLR].X/50)
                 y=int(barri.fireLR[index_eneLR].Y/50) 
                 barri.filemap[y][x]=random.randint(5,10)
