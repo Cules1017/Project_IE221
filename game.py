@@ -5,6 +5,7 @@ from mapgame import *
 from pygame import mixer
 from enemy import*
 from baner import*
+from AutoPlay import*
 import random
  
 
@@ -36,16 +37,21 @@ map1.filemap=[
 ]
 
 player=Player(400,600)
+player2=autoplay(800,100)
 panel_info=BanerInfo(player,map1)
+panel_infoBOT=BanerInfoBot(player2,map1)
 map1.render_enemy()
 
 def draw_window():
     screen.fill((125,155,255))
     map1.draw(screen)
     player.draw(screen)
+    player2.draw(screen)
     map1.draw_enemy(screen,map1)
     panel_info.draw(screen)
     panel_info.update(player)
+    panel_infoBOT.draw(screen)
+    panel_infoBOT.update(player2)
     pygame.display.flip()
     pygame.display.update()
 
@@ -62,8 +68,14 @@ while True:
         if event.type==pygame.KEYDOWN:
             player.put_boom(event)
     player.move(map1)
+    player2.automove(map1)
+    player2.update(0.01)
     player.update(0.01)
     if player.checkdie():
         player.speed=0
+        print("END GAME")
+
+    if player2.checkdie():
+        player2.speed=0
         print("END GAME")
     draw_window()

@@ -30,8 +30,8 @@ class BanerInfo():
         self.boom=self.font.render(str(player.boom_real), True,(33,31,88))
         self.point=self.font.render(str(player.point), True,(33,31,88))
     def draw(self, screen):
-        
-        screen.blit(self.bg,(self.x,self.y))
+        if self.bg!=None:
+            screen.blit(self.bg,(self.x,self.y))
         screen.blit(self.display_player,(self.x+5,self.y+105))
         screen.blit(self.avata,(self.x+35,self.y+125))
         screen.blit(self.name,(self.x+45,self.y+212))
@@ -47,3 +47,9 @@ class BanerInfo():
         # screen.blit(self.name,(self.x+45,self.y+212))
         # screen.blit(self.name,(self.x+45,self.y+212))
         # screen.blit(self.name,(self.x+45,self.y+212))
+class BanerInfoBot(BanerInfo):
+    def __init__(self, player, map) -> None:
+        super().__init__(player, map)
+        self.y=200
+        self.bg=None
+ 
