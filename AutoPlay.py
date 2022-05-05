@@ -50,7 +50,7 @@ class autoplay(Player):
                 b1.add(boom)
                 self.boom_sprite.append(b1)
                 self.last_put=self.now
-    def automove(self,map):
+    def automove(self,map,*players):
         orig_x=self.X
         orig_y=self.Y
         if self.redirect==1:# and self.X>=60:
@@ -116,6 +116,16 @@ class autoplay(Player):
         #         barri.filemap[y][x]=random.randint(5,7)
         #         map.item.remove(it)
         #         print(len(map.item))
+        for playeri in players:
+            if playeri.rect.colliderect(self):
+                self.X=orig_x
+                self.Y=orig_y
+                self.rect.topleft=[orig_x,orig_y]
+                if  self.now-self.last_put >= 5000:
+                    self.put_boomAuto()
+                self.redirect=random.randint(1,4)
+            for b in playeri.boom:
+                b.destroy(map,self)
         for brick in map.Barri2:
             if brick.rect.colliderect(self):
                 self.X=orig_x

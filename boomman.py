@@ -74,9 +74,9 @@ class Player(pygame.sprite.Sprite):
             self.rect.topleft=[self.X+self.speed*n,self.Y]
             self.X+=self.speed*n
 
-
+    
     #Set up moverment
-    def move(self,map):
+    def move(self,map,*players):
         orig_x=self.X
         orig_y=self.Y
         keys = pygame.key.get_pressed() 
@@ -128,6 +128,14 @@ class Player(pygame.sprite.Sprite):
                 self.X=orig_x
                 self.Y=orig_y
                 self.rect.topleft=[orig_x,orig_y]
+        for playeri in players:
+            if playeri.rect.colliderect(self):
+                self.X=orig_x
+                self.Y=orig_y
+                self.rect.topleft=[orig_x,orig_y]
+            for b in playeri.boom:
+                b.destroy(map,self)
+        
 
             
         # for b in self.boom:
@@ -189,4 +197,97 @@ class Player(pygame.sprite.Sprite):
         return False
     def update(self,second):
         self.animation(second)
-        
+
+
+class PlayerTwo(Player):
+    def __init__(self, pos_x, pos_y):
+        super().__init__(pos_x, pos_y)
+        self.run_animation=[]
+        self.run_animation.append(pygame.image.load('asset/Player 4/01.gif').convert_alpha())
+        self.run_animation.append(pygame.image.load('asset/Player 4/02.gif').convert_alpha())
+        self.run_animation.append(pygame.image.load('asset/Player 4/03.gif').convert_alpha())
+        self.run_animation.append(pygame.image.load('asset/Player 4/04.gif').convert_alpha())
+        self.run_animation.append(pygame.image.load('asset/Player 4/05.gif').convert_alpha())
+
+        self.run_animation.append(pygame.image.load('asset/Player 4/11.gif').convert_alpha())
+        self.run_animation.append(pygame.image.load('asset/Player 4/12.gif').convert_alpha())
+        self.run_animation.append(pygame.image.load('asset/Player 4/13.gif').convert_alpha())
+        self.run_animation.append(pygame.image.load('asset/Player 4/14.gif').convert_alpha())
+        self.run_animation.append(pygame.image.load('asset/Player 4/15.gif').convert_alpha())
+
+        self.run_animation.append(pygame.image.load('asset/Player 4/21.gif').convert_alpha())
+        self.run_animation.append(pygame.image.load('asset/Player 4/22.gif').convert_alpha())
+        self.run_animation.append(pygame.image.load('asset/Player 4/23.gif').convert_alpha())
+        self.run_animation.append(pygame.image.load('asset/Player 4/24.gif').convert_alpha())
+        self.run_animation.append(pygame.image.load('asset/Player 4/25.gif').convert_alpha())
+
+        self.run_animation.append(pygame.image.load('asset/Player 4/31.gif').convert_alpha())
+        self.run_animation.append(pygame.image.load('asset/Player 4/32.gif').convert_alpha())
+        self.run_animation.append(pygame.image.load('asset/Player 4/33.gif').convert_alpha())
+        self.run_animation.append(pygame.image.load('asset/Player 4/34.gif').convert_alpha())
+        self.run_animation.append(pygame.image.load('asset/Player 4/35.gif').convert_alpha())
+
+        self.run_animation.append(pygame.image.load('asset/Player 4/41.gif').convert_alpha())
+        self.run_animation.append(pygame.image.load('asset/Player 4/42.gif').convert_alpha())
+        self.run_animation.append(pygame.image.load('asset/Player 4/43.gif').convert_alpha())
+        self.run_animation.append(pygame.image.load('asset/Player 4/44.gif').convert_alpha())
+        self.run_animation.append(pygame.image.load('asset/Player 4/45.gif').convert_alpha())
+    def move(self,map,*players):
+        orig_x=self.X
+        orig_y=self.Y
+        keys = pygame.key.get_pressed() 
+        if keys[pygame.K_a] and self.X>=60:
+            self.walk_Left_Right(-0.25)
+            self.action=3
+        elif keys[pygame.K_d] and self.X<=950:
+            self.walk_Left_Right(0.25)
+            self.action=4
+        elif keys[pygame.K_w] and self.Y>=55:
+            self.walk_TopBottom(-0.25)
+            self.action=1
+        elif keys[pygame.K_s] and self.Y<=605:
+            self.walk_TopBottom(0.25)
+            self.action=2
+        self.rect.colliderect(self)
+        enemymap=map.fireLR+map.fireBT
+        for brick in map.Barri1:
+            if brick.rect.colliderect(self):
+                self.X=orig_x
+                self.Y=orig_y
+                self.rect.topleft=[orig_x,orig_y]
+        for b in self.boom:
+            b.destroy(map,self)
+        for enemy in enemymap:
+            enemy.acttack(self)
+        index_item=self.rect.collidelist(map.item)
+        if index_item!=-1:
+                x=int(map.item[index_item].X/50)
+                y=int(map.item[index_item].Y/50) 
+                map.filemap[y][x]=0
+                map.item[index_item].acttack(self)
+                map.item.remove(map.item[index_item])
+        for brick in map.Barri2:
+            if brick.rect.colliderect(self):
+                self.X=orig_x
+                self.Y=orig_y
+                self.rect.topleft=[orig_x,orig_y]
+        for playeri in players:
+            if playeri.rect.colliderect(self):
+                self.X=orig_x
+                self.Y=orig_y
+                self.rect.topleft=[orig_x,orig_y]
+            for b in playeri.boom:
+                b.destroy(map,self)
+    def put_boom(self,event):
+        if event.key==pygame.K_LCTRL:
+            if len(self.boom)<=self.boom_num:
+                self.boom_real-=1
+                boom=Boom(self.X-10,self.Y-5)
+                boom.sound.play()
+                boom.time = pygame.time.get_ticks()
+                self.boom.append(boom)
+                b1=pygame.sprite.Group()
+                b1.add(boom)
+                self.boom_sprite.append(b1)
+
+    

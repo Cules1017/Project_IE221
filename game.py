@@ -35,7 +35,7 @@ map1.filemap=[
     [1,0,2,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,1],
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 ]
-
+player1=PlayerTwo(700,600)
 player=Player(400,600)
 player2=autoplay(800,100)
 panel_info=BanerInfo(player,map1)
@@ -46,6 +46,7 @@ def draw_window():
     screen.fill((125,155,255))
     map1.draw(screen)
     player.draw(screen)
+    player1.draw(screen)
     player2.draw(screen)
     map1.draw_enemy(screen,map1)
     panel_info.draw(screen)
@@ -65,12 +66,17 @@ while True:
         if event.type==pygame.KEYUP:
             if player.action!=5:
                 player.action=0
+            if player1.action!=5:
+                player1.action=0
         if event.type==pygame.KEYDOWN:
             player.put_boom(event)
-    player.move(map1)
-    player2.automove(map1)
+            player1.put_boom(event)
+    player.move(map1,player1,player2)
+    player1.move(map1,player,player2)
+    player2.automove(map1,player,player1)
     player2.update(0.01)
     player.update(0.01)
+    player1.update(0.01)
     if player.checkdie():
         player.speed=0
         print("END GAME")

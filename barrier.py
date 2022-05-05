@@ -29,6 +29,14 @@ class Stone(Barrier):
         self.image=pygame.transform.scale(pygame.image.load('asset/topographic/brick.jpg'),(50,50))
         self.rect = self.image.get_rect()
         self.rect.topleft = [self.X,self.Y]
+
+class Stone1(Barrier):
+    def __init__(self, pos_x, pos_y):
+        super().__init__(pos_x, pos_y)
+        self.type=3
+        self.image=pygame.transform.scale(pygame.image.load('asset/topographic/brick.jpg'),(50,50))
+        self.rect = self.image.get_rect()
+        self.rect.topleft = [self.X,self.Y]
 class Sandgrey_bg(Barrier):
     def __init__(self, pos_x, pos_y):
         super().__init__(pos_x, pos_y)
