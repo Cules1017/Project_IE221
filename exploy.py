@@ -3,7 +3,6 @@ import pygame
 class boom1_exploy(pygame.sprite.Sprite):
     def __init__(self,pos_x,pos_y,pow):
         super().__init__()
-        print("akakak")
         self.X=pos_x-5
         self.Y=pos_y-5
         self.power_explo=pow

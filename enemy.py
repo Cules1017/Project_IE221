@@ -23,7 +23,6 @@ class fire():
         if self.rect.colliderect(player):
             self.sound_attack.play()
             player.being_attacked(self.damage)
-            print(player.heath)
     def move(self,map):
         if self.action==1:
             self.X=self.X

@@ -75,9 +75,9 @@ class Player(pygame.sprite.Sprite):
             self.rect.topleft=[self.X+self.speed*n,self.Y]
             self.X+=self.speed*n
 
-    def checkboom(self,players,map):
-        orig_x=self.X
-        orig_y=self.Y
+    def checkboom(self,players,map,x,y):
+        orig_x=x
+        orig_y=y
         for b in self.boom:
             b.destroy(map,self)
         for playeri in players:
@@ -141,7 +141,7 @@ class Player(pygame.sprite.Sprite):
                 self.X=orig_x
                 self.Y=orig_y
                 self.rect.topleft=[orig_x,orig_y]
-        self.checkboom(players,map)
+        self.checkboom(players,map,orig_x,orig_y)
         # for playeri in players:
         #     if playeri.rect.colliderect(self):
         #         self.X=orig_x
@@ -173,13 +173,9 @@ class Player(pygame.sprite.Sprite):
                 b1=pygame.sprite.Group()
                 b1.add(boom)
                 self.boom_sprite.append(b1)
-                for i in self.boom:
-                    print(i)
+                
     def being_attacked(self,damage):
-        print(self.heath)
         self.heath-=damage
-        print(self.heath)
-        print('-----',self.name)
     def animation(self,second):
         if self.action==0:
             self.current_run=self.current_run
@@ -309,7 +305,8 @@ class PlayerTwo(Player):
                 self.X=orig_x
                 self.Y=orig_y
                 self.rect.topleft=[orig_x,orig_y]
-        self.checkboom(players,map)
+        self.checkboom(players,map,orig_x,orig_y)
+
         # for playeri in players:
         #     if playeri.rect.colliderect(self):
         #         self.X=orig_x

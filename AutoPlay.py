@@ -141,5 +141,6 @@ class autoplay(Player):
                 self.Y=orig_y
                 self.rect.topleft=[orig_x,orig_y]
                 self.redirect=random.randint(1,4)
-        self.checkboom(players,map)
+        self.checkboom(players,map,orig_x,orig_y)
+
 
