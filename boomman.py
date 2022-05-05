@@ -1,3 +1,4 @@
+from tkinter import SEL
 import pygame
 from boom import *
 
@@ -74,7 +75,19 @@ class Player(pygame.sprite.Sprite):
             self.rect.topleft=[self.X+self.speed*n,self.Y]
             self.X+=self.speed*n
 
-    
+    def checkboom(self,players,map):
+        orig_x=self.X
+        orig_y=self.Y
+        for b in self.boom:
+            b.destroy(map,self)
+        for playeri in players:
+            if playeri.rect.colliderect(self):
+                self.X=orig_x
+                self.Y=orig_y
+                self.rect.topleft=[orig_x,orig_y]
+            for b in playeri.boom:
+                #print(playeri.name)
+                b.destroy(map,self)
     #Set up moverment
     def move(self,map,*players):
         orig_x=self.X
@@ -104,8 +117,8 @@ class Player(pygame.sprite.Sprite):
                 self.X=orig_x
                 self.Y=orig_y
                 self.rect.topleft=[orig_x,orig_y]
-        for b in self.boom:
-            b.destroy(map,self)
+        # for b in self.boom:
+        #     b.destroy(map,self)
         for enemy in enemymap:
             enemy.acttack(self)
         index_item=self.rect.collidelist(map.item)
@@ -128,13 +141,14 @@ class Player(pygame.sprite.Sprite):
                 self.X=orig_x
                 self.Y=orig_y
                 self.rect.topleft=[orig_x,orig_y]
-        for playeri in players:
-            if playeri.rect.colliderect(self):
-                self.X=orig_x
-                self.Y=orig_y
-                self.rect.topleft=[orig_x,orig_y]
-            for b in playeri.boom:
-                b.destroy(map,self)
+        self.checkboom(players,map)
+        # for playeri in players:
+        #     if playeri.rect.colliderect(self):
+        #         self.X=orig_x
+        #         self.Y=orig_y
+        #         self.rect.topleft=[orig_x,orig_y]
+        #     for b in playeri.boom:
+        #         b.destroy(map,self)
         
 
             
@@ -159,8 +173,13 @@ class Player(pygame.sprite.Sprite):
                 b1=pygame.sprite.Group()
                 b1.add(boom)
                 self.boom_sprite.append(b1)
+                for i in self.boom:
+                    print(i)
     def being_attacked(self,damage):
+        print(self.heath)
         self.heath-=damage
+        print(self.heath)
+        print('-----',self.name)
     def animation(self,second):
         if self.action==0:
             self.current_run=self.current_run
@@ -202,6 +221,7 @@ class Player(pygame.sprite.Sprite):
 class PlayerTwo(Player):
     def __init__(self, pos_x, pos_y):
         super().__init__(pos_x, pos_y)
+        self.name="BLUE"
         self.run_animation=[]
         self.run_animation.append(pygame.image.load('asset/Player 4/01.gif').convert_alpha())
         self.run_animation.append(pygame.image.load('asset/Player 4/02.gif').convert_alpha())
@@ -248,6 +268,11 @@ class PlayerTwo(Player):
         elif keys[pygame.K_s] and self.Y<=605:
             self.walk_TopBottom(0.25)
             self.action=2
+        # if self.rect.collidelist(map.Barri1)!=1:
+        #     print('cham')
+        #     self.X=orig_x
+        #     self.Y=orig_y
+        #     self.rect.topleft=[orig_x,orig_y]
         self.rect.colliderect(self)
         enemymap=map.fireLR+map.fireBT
         for brick in map.Barri1:
@@ -255,8 +280,13 @@ class PlayerTwo(Player):
                 self.X=orig_x
                 self.Y=orig_y
                 self.rect.topleft=[orig_x,orig_y]
-        for b in self.boom:
-            b.destroy(map,self)
+        # for b in self.boom:
+        #     if b.exploy_boom==None:
+        #         print('hahah')
+        #     if b.exploy_boom!=None:
+        #         print("Có Boom")
+        #         if b.exploy_boom.rect.colliderect(self):
+        #             self.being_attacked(20)
         for enemy in enemymap:
             enemy.acttack(self)
         index_item=self.rect.collidelist(map.item)
@@ -266,18 +296,29 @@ class PlayerTwo(Player):
                 map.filemap[y][x]=0
                 map.item[index_item].acttack(self)
                 map.item.remove(map.item[index_item])
+        # for it in map.item:
+        #     it.acttack(self)
+        #     if it.rect.colliderect(self):
+        #         x=int(map.it[index].X/50)
+        #         y=int(barri.Barri2[index].Y/50)
+        #         barri.filemap[y][x]=random.randint(5,7)
+        #         map.item.remove(it)
+        #         print(len(map.item))
         for brick in map.Barri2:
             if brick.rect.colliderect(self):
                 self.X=orig_x
                 self.Y=orig_y
                 self.rect.topleft=[orig_x,orig_y]
-        for playeri in players:
-            if playeri.rect.colliderect(self):
-                self.X=orig_x
-                self.Y=orig_y
-                self.rect.topleft=[orig_x,orig_y]
-            for b in playeri.boom:
-                b.destroy(map,self)
+        self.checkboom(players,map)
+        # for playeri in players:
+        #     if playeri.rect.colliderect(self):
+        #         self.X=orig_x
+        #         self.Y=orig_y
+        #         self.rect.topleft=[orig_x,orig_y]
+        #     for b in playeri.boom:
+        #         if b.exploy_boom!=None:
+        #             if b.exploy_boom.rect.colliderect(self):
+        #                 self.being_attacked(20)
     def put_boom(self,event):
         if event.key==pygame.K_LCTRL:
             if len(self.boom)<=self.boom_num:

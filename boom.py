@@ -28,10 +28,12 @@ class Boom(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.topleft = [self.X,self.Y]
     def destroy(self, barri,player):
+        # print(self.exploy_boom!=None )
         if self.exploy_boom!=None:
+            #print(player.name)
             if self.exploy_boom.rect.colliderect(player):
                 player.being_attacked(20)
-                print(player.heath)
+                print(player.name)
             index=self.exploy_boom.rect.collidelist(barri.Barri2)
             index_eneLR=self.exploy_boom.rect.collidelist(barri.fireLR)
             index_eneBT=self.exploy_boom.rect.collidelist(barri.fireBT)
@@ -54,13 +56,15 @@ class Boom(pygame.sprite.Sprite):
                 barri.filemap[y][x]=random.randint(5,10)
                 print(barri.filemap[y][x])
                 barri.Barri2.remove(barri.Barri2[index])
-            self.exploy_boom=None
+            #self.exploy_boom=None
                 
     def update(self,second,screen):
         if self.time is not None:
-            if pygame.time.get_ticks() - self.time >= 1500:
+            if pygame.time.get_ticks() - self.time >= 1700:
                 self.exploy_boom=boom1_exploy(self.X,self.Y,self.power_explo)
                 self.exploy_boom.draw(screen)
+            if pygame.time.get_ticks() - self.time >= 1800:
+                self.exploy_boom=None
                 self.kill()
         self.current_animation+=second
         if int(self.current_animation) >= len(self.boom_animation):

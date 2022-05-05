@@ -4,6 +4,8 @@ class autoplay(Player):
         super().__init__(pos_x, pos_y)
         self.redirect=random.randint(1,4)
         self.decideBoom=random.randint(0,2)
+        self.name="RED"
+        self.boom=[]
         self.last_put=0
         self.last_turn=0
         self.now1=pygame.time.get_ticks()
@@ -94,8 +96,11 @@ class autoplay(Player):
                 if self.decideBoom==1 and self.now-self.last_put >= 5000:
                     self.put_boomAuto()
                 self.redirect=random.randint(1,4)
-        for b in self.boom:
-            b.destroy(map,self)
+        # for b in self.boom:
+        #     b.destroy(map,self)
+        #     if b.exploy_boom!=None:
+        #         if b.exploy_boom.rect.colliderect(self):
+        #             self.being_attacked(20)
         for enemy in enemymap:
             if enemy.rect.colliderect(self):
                 if self.now-self.last_put >= 5000:
@@ -124,12 +129,17 @@ class autoplay(Player):
                 if  self.now-self.last_put >= 5000:
                     self.put_boomAuto()
                 self.redirect=random.randint(1,4)
-            for b in playeri.boom:
-                b.destroy(map,self)
+            # for b in playeri.boom:
+            #     b.destroy(map,self)
+            #     if b.exploy_boom!=None:
+            #         print(self.name)
+            #         if b.exploy_boom.rect.colliderect(self):
+            #             self.being_attacked(20)
         for brick in map.Barri2:
             if brick.rect.colliderect(self):
                 self.X=orig_x
                 self.Y=orig_y
                 self.rect.topleft=[orig_x,orig_y]
                 self.redirect=random.randint(1,4)
+        self.checkboom(players,map)
 
