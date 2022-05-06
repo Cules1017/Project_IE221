@@ -69,8 +69,17 @@ class fire_LR(fire):
     def __init__(self, pos_x, pos_y):
         super().__init__(pos_x, pos_y)
         self.action=1
+        n=random.randint(0,2)
+        if n==1:
+            self.image=pygame.transform.scale(pygame.image.load('asset/enemy/Ghost/ghost.gif'),(self.WIDTH,self.HEIGHT))
+            self.damage=8
+
 
 class fire_TB(fire):
     def __init__(self, pos_x, pos_y):
         super().__init__(pos_x, pos_y)
         self.action=3
+        n=random.randint(0,2)
+        if n==1:
+            self.image=pygame.transform.scale(pygame.image.load('asset/enemy/Ghost/ghost.gif'),(self.WIDTH,self.HEIGHT))
+            self.damage=8

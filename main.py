@@ -2,6 +2,7 @@ import pygame, sys
 from button import Button
 from pygame import mixer
 from pygame import movie
+from game import *
 pygame.init()
 
 SCREEN = pygame.display.set_mode((1280, 700))
@@ -38,30 +39,38 @@ def name():
 
         pygame.display.update()  
 def play():
+    Game1=GameOnePL_PC()
+    Game1.startgame()
     while True:
-        PLAY_MOUSE_POS = pygame.mouse.get_pos()
+        # PLAY_MOUSE_POS = pygame.mouse.get_pos()
 
-        SCREEN.fill("black")
+        # SCREEN.fill("black")
 
-        PLAY_TEXT = get_font(30).render("This is the PLAY screen.", True, "White")
-        PLAY_RECT = PLAY_TEXT.get_rect(center=(640, 260))
-        SCREEN.blit(PLAY_TEXT, PLAY_RECT)
+        # PLAY_TEXT = get_font(30).render("This is the PLAY screen.", True, "White")
+        # PLAY_RECT = PLAY_TEXT.get_rect(center=(640, 260))
+        # SCREEN.blit(PLAY_TEXT, PLAY_RECT)
 
-        PLAY_BACK = Button(image=None, pos=(640, 460), 
-                            text_input="BACK", font=get_font(30), base_color="White", hovering_color="Green")
+        # PLAY_BACK = Button(image=None, pos=(640, 460), 
+        #                     text_input="BACK", font=get_font(30), base_color="White", hovering_color="Green")
 
-        PLAY_BACK.changeColor(PLAY_MOUSE_POS)
-        PLAY_BACK.update(SCREEN)
+        # PLAY_BACK.changeColor(PLAY_MOUSE_POS)
+        # PLAY_BACK.update(SCREEN)
+        Game1.ingameLOGIC()
+        Game1.drawWindow(SCREEN)
+        if Game1.checkWin():
+            print("Gọi Màn hình Win Game")
+        if Game1.checkGameOver():
+            print("Gọi màn hình Game OVer")
 
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
-                    main_menu()
+        # for event in pygame.event.get():
+        #     if event.type == pygame.QUIT:
+        #         pygame.quit()
+        #         sys.exit()
+            # if event.type == pygame.MOUSEBUTTONDOWN:
+            #     if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
+            #         main_menu()
 
-        pygame.display.update()
+        #pygame.display.update()
 
 def options():
     while True:

@@ -15,6 +15,10 @@ class Mapgame():
         #type 5: Cấp cứu hồi đầy máu cho nhân vật
         #type 6: Thuốc quí tăng 1.5 máu cho nhân vật
         #type 7: tăng tốc chạy cho nhân vật
+        #Type 8: tặng cho player thêm boom
+        #Type 9: tặng coin vàng +2 point
+        #type 10: tặng coin bạc +1 point
+        #type 11: tặng sao +5 point
         self.Barri0=[]
         self.Barri1=[]
         self.Barri2=[]
@@ -74,6 +78,24 @@ class Mapgame():
                     temp0=Sandgrey_bg(col*50,row*50)
                     temp0.draw(screen,col,row)
                     temp=addbomm(col*50,row*50)
+                    temp.draw(screen,col,row)
+                    self.item.append(temp)
+                elif(self.filemap[row][col]==19):
+                    temp0=Sandgrey_bg(col*50,row*50)
+                    temp0.draw(screen,col,row)
+                    temp=coin_gold(col*50,row*50)
+                    temp.draw(screen,col,row)
+                    self.item.append(temp)
+                elif(self.filemap[row][col]==20):
+                    temp0=Sandgrey_bg(col*50,row*50)
+                    temp0.draw(screen,col,row)
+                    temp=coin_silver(col*50,row*50)
+                    temp.draw(screen,col,row)
+                    self.item.append(temp)
+                elif(self.filemap[row][col]==21):
+                    temp0=Sandgrey_bg(col*50,row*50)
+                    temp0.draw(screen,col,row)
+                    temp=coin_star(col*50,row*50)
                     temp.draw(screen,col,row)
                     self.item.append(temp)
                 else:

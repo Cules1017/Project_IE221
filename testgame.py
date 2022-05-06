@@ -35,8 +35,8 @@ map1.filemap=[
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 ]
-player=Player(300,600)
-player1=PlayerTwo(700,600)
+player=Player(50,600)
+player1=PlayerTwo(950,600)
 player2=autoplay(800,100)
 panel_info=BanerInfo(player,map1)
 panel_infoBOT=BanerInfoBot(player1,map1)

@@ -142,5 +142,71 @@ class autoplay(Player):
                 self.rect.topleft=[orig_x,orig_y]
                 self.redirect=random.randint(1,4)
         self.checkboom(players,map,orig_x,orig_y)
+class autoPlay1(autoplay):
+    def __init__(self, pos_x, pos_y):
+        super().__init__(pos_x, pos_y)
+        self.run_animation=[]
+        self.name="GREEN"
+        self.run_animation.append(pygame.image.load('asset/Player 2/01.gif').convert_alpha())
+        self.run_animation.append(pygame.image.load('asset/Player 2/02.gif').convert_alpha())
+        self.run_animation.append(pygame.image.load('asset/Player 2/03.gif').convert_alpha())
+        self.run_animation.append(pygame.image.load('asset/Player 2/04.gif').convert_alpha())
+        self.run_animation.append(pygame.image.load('asset/Player 2/05.gif').convert_alpha())
 
+        self.run_animation.append(pygame.image.load('asset/Player 2/11.gif').convert_alpha())
+        self.run_animation.append(pygame.image.load('asset/Player 2/12.gif').convert_alpha())
+        self.run_animation.append(pygame.image.load('asset/Player 2/13.gif').convert_alpha())
+        self.run_animation.append(pygame.image.load('asset/Player 2/14.gif').convert_alpha())
+        self.run_animation.append(pygame.image.load('asset/Player 2/15.gif').convert_alpha())
 
+        self.run_animation.append(pygame.image.load('asset/Player 2/21.gif').convert_alpha())
+        self.run_animation.append(pygame.image.load('asset/Player 2/22.gif').convert_alpha())
+        self.run_animation.append(pygame.image.load('asset/Player 2/23.gif').convert_alpha())
+        self.run_animation.append(pygame.image.load('asset/Player 2/24.gif').convert_alpha())
+        self.run_animation.append(pygame.image.load('asset/Player 2/25.gif').convert_alpha())
+
+        self.run_animation.append(pygame.image.load('asset/Player 2/31.gif').convert_alpha())
+        self.run_animation.append(pygame.image.load('asset/Player 2/32.gif').convert_alpha())
+        self.run_animation.append(pygame.image.load('asset/Player 2/33.gif').convert_alpha())
+        self.run_animation.append(pygame.image.load('asset/Player 2/34.gif').convert_alpha())
+        self.run_animation.append(pygame.image.load('asset/Player 2/35.gif').convert_alpha())
+
+        self.run_animation.append(pygame.image.load('asset/Player 2/41.gif').convert_alpha())
+        self.run_animation.append(pygame.image.load('asset/Player 2/42.gif').convert_alpha())
+        self.run_animation.append(pygame.image.load('asset/Player 2/43.gif').convert_alpha())
+        self.run_animation.append(pygame.image.load('asset/Player 2/44.gif').convert_alpha())
+        self.run_animation.append(pygame.image.load('asset/Player 2/45.gif').convert_alpha())
+class autoPlay2(autoplay):
+    def __init__(self, pos_x, pos_y):
+        super().__init__(pos_x, pos_y)
+        self.run_animation=[]
+        self.name="BLUE"
+        self.run_animation.append(pygame.image.load('asset/Player 4/01.gif').convert_alpha())
+        self.run_animation.append(pygame.image.load('asset/Player 4/02.gif').convert_alpha())
+        self.run_animation.append(pygame.image.load('asset/Player 4/03.gif').convert_alpha())
+        self.run_animation.append(pygame.image.load('asset/Player 4/04.gif').convert_alpha())
+        self.run_animation.append(pygame.image.load('asset/Player 4/05.gif').convert_alpha())
+
+        self.run_animation.append(pygame.image.load('asset/Player 4/11.gif').convert_alpha())
+        self.run_animation.append(pygame.image.load('asset/Player 4/12.gif').convert_alpha())
+        self.run_animation.append(pygame.image.load('asset/Player 4/13.gif').convert_alpha())
+        self.run_animation.append(pygame.image.load('asset/Player 4/14.gif').convert_alpha())
+        self.run_animation.append(pygame.image.load('asset/Player 4/15.gif').convert_alpha())
+
+        self.run_animation.append(pygame.image.load('asset/Player 4/21.gif').convert_alpha())
+        self.run_animation.append(pygame.image.load('asset/Player 4/22.gif').convert_alpha())
+        self.run_animation.append(pygame.image.load('asset/Player 4/23.gif').convert_alpha())
+        self.run_animation.append(pygame.image.load('asset/Player 4/24.gif').convert_alpha())
+        self.run_animation.append(pygame.image.load('asset/Player 4/25.gif').convert_alpha())
+
+        self.run_animation.append(pygame.image.load('asset/Player 4/31.gif').convert_alpha())
+        self.run_animation.append(pygame.image.load('asset/Player 4/32.gif').convert_alpha())
+        self.run_animation.append(pygame.image.load('asset/Player 4/33.gif').convert_alpha())
+        self.run_animation.append(pygame.image.load('asset/Player 4/34.gif').convert_alpha())
+        self.run_animation.append(pygame.image.load('asset/Player 4/35.gif').convert_alpha())
+
+        self.run_animation.append(pygame.image.load('asset/Player 4/41.gif').convert_alpha())
+        self.run_animation.append(pygame.image.load('asset/Player 4/42.gif').convert_alpha())
+        self.run_animation.append(pygame.image.load('asset/Player 4/43.gif').convert_alpha())
+        self.run_animation.append(pygame.image.load('asset/Player 4/44.gif').convert_alpha())
+        self.run_animation.append(pygame.image.load('asset/Player 4/45.gif').convert_alpha())

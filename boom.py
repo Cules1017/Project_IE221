@@ -41,19 +41,19 @@ class Boom(pygame.sprite.Sprite):
                 player.point+=1
                 x=int(barri.fireBT[index_eneBT].X/50)
                 y=int(barri.fireBT[index_eneBT].Y/50) 
-                barri.filemap[y][x]=random.randint(5,10)
+                barri.filemap[y][x]=random.randint(15,22)
                 barri.fireBT.remove(barri.fireBT[index_eneBT])
             if index_eneLR!=-1:
                 player.point+=1
                 x=int(barri.fireLR[index_eneLR].X/50)
                 y=int(barri.fireLR[index_eneLR].Y/50) 
-                barri.filemap[y][x]=random.randint(5,10)
+                barri.filemap[y][x]=random.randint(15,22)
                 print(barri.filemap[y][x])
                 barri.fireLR.remove(barri.fireLR[index_eneLR])
             if index!=-1:
                 x=int(barri.Barri2[index].X/50)
                 y=int(barri.Barri2[index].Y/50)
-                barri.filemap[y][x]=random.randint(5,10)
+                barri.filemap[y][x]=random.randint(5,13)
                 print(barri.filemap[y][x])
                 barri.Barri2.remove(barri.Barri2[index])
             #self.exploy_boom=None
