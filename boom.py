@@ -27,34 +27,38 @@ class Boom(pygame.sprite.Sprite):
         #rectangle collision
         self.rect = self.image.get_rect()
         self.rect.topleft = [self.X,self.Y]
+    def destroyPL(self,player):
+        if self.exploy_boom!=None:
+            #print(player.name)
+            if self.exploy_boom.rect.colliderect(player):
+                player.being_attacked(20)
     def destroy(self, barri,player):
         # print(self.exploy_boom!=None )
         if self.exploy_boom!=None:
             #print(player.name)
             if self.exploy_boom.rect.colliderect(player):
                 player.being_attacked(20)
-                print(player.name)
             index=self.exploy_boom.rect.collidelist(barri.Barri2)
             index_eneLR=self.exploy_boom.rect.collidelist(barri.fireLR)
             index_eneBT=self.exploy_boom.rect.collidelist(barri.fireBT)
             if index_eneBT!=-1:
                 player.point+=1
+                print(player.name)
                 x=int(barri.fireBT[index_eneBT].X/50)
                 y=int(barri.fireBT[index_eneBT].Y/50) 
                 barri.filemap[y][x]=random.randint(15,22)
                 barri.fireBT.remove(barri.fireBT[index_eneBT])
             if index_eneLR!=-1:
                 player.point+=1
+                print(player.name)
                 x=int(barri.fireLR[index_eneLR].X/50)
                 y=int(barri.fireLR[index_eneLR].Y/50) 
                 barri.filemap[y][x]=random.randint(15,22)
-                print(barri.filemap[y][x])
                 barri.fireLR.remove(barri.fireLR[index_eneLR])
             if index!=-1:
                 x=int(barri.Barri2[index].X/50)
                 y=int(barri.Barri2[index].Y/50)
                 barri.filemap[y][x]=random.randint(5,13)
-                print(barri.filemap[y][x])
                 barri.Barri2.remove(barri.Barri2[index])
             #self.exploy_boom=None
                 

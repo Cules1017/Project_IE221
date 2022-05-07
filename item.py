@@ -54,20 +54,20 @@ class coin_gold(item):
     def __init__(self,pos_x,pos_y) -> None:
         super().__init__(pos_x,pos_y)
         self.addpoint=2
-        self.image=pygame.transform.scale(pygame.image.load('asset/item/coin_gold.gif'),(40,40))
+        self.image=pygame.transform.scale(pygame.image.load('asset/item/coin_gold.gif'),(40,50))
         self.rect = self.image.get_rect()
         self.rect.center= [self.X,self.Y]
 class coin_silver(item):
     def __init__(self,pos_x,pos_y) -> None:
         super().__init__(pos_x,pos_y)
         self.addpoint=1
-        self.image=pygame.transform.scale(pygame.image.load('asset/item/coin_silver.gif'),(40,40))
+        self.image=pygame.transform.scale(pygame.image.load('asset/item/coin_silver.gif'),(40,50))
         self.rect = self.image.get_rect()
         self.rect.center= [self.X,self.Y]
 class coin_star(item):
     def __init__(self,pos_x,pos_y) -> None:
         super().__init__(pos_x,pos_y)
         self.addpoint=5
-        self.image=pygame.transform.scale(pygame.image.load('asset/item/star.gif'),(40,40))
+        self.image=pygame.transform.scale(pygame.image.load('asset/item/star.gif'),(40,50))
         self.rect = self.image.get_rect()
         self.rect.center= [self.X,self.Y]

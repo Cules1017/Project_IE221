@@ -39,7 +39,7 @@ def name():
 
         pygame.display.update()  
 def play():
-    Game1=GameOnePL_PC()
+    Game1=GameTwoPL()
     Game1.startgame()
     while True:
         # PLAY_MOUSE_POS = pygame.mouse.get_pos()
@@ -71,7 +71,6 @@ def play():
             #         main_menu()
 
         #pygame.display.update()
-
 def options():
     while True:
         OPTIONS_MOUSE_POS = pygame.mouse.get_pos()

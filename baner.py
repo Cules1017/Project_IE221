@@ -50,6 +50,6 @@ class BanerInfo():
 class BanerInfoBot(BanerInfo):
     def __init__(self, player, map) -> None:
         super().__init__(player, map)
-        self.y=200
+        self.y=130
         self.bg=None
  

@@ -87,7 +87,7 @@ class Player(pygame.sprite.Sprite):
                 self.rect.topleft=[orig_x,orig_y]
             for b in playeri.boom:
                 #print(playeri.name)
-                b.destroy(map,self)
+                b.destroyPL(self)
     #Set up moverment
     def move(self,map,*players):
         orig_x=self.X
