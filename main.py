@@ -1,8 +1,9 @@
 import pygame, sys
 from button import Button
 from pygame import mixer
-from pygame import movie
+# from pygame import movie
 from game import *
+
 pygame.init()
 
 SCREEN = pygame.display.set_mode((1280, 700))
@@ -13,28 +14,28 @@ BG = pygame.image.load("asset/menu/taigameboom.png")
 the=  pygame.image.load("asset/menu/td.png")
 def get_font(size): # Returns Press-Start-2P in the desired size
     return pygame.font.Font("asset/font/font.ttf", size)
-def name():
+def lan():
     while True:
-        NAME_MOUSE_POS = pygame.mouse.get_pos()
+        LAN_MOUSE_POS = pygame.mouse.get_pos()
 
         SCREEN.fill("black")
 
-        NAME_TEXT = get_font(30).render("This is the NAME screen.", True, "White")
-        NAME_RECT = NAME_TEXT.get_rect(center=(640, 260))
-        SCREEN.blit(NAME_TEXT, NAME_RECT)
+        LAN_TEXT = get_font(30).render("This is the LAN screen.", True, "White")
+        LAN_RECT = LAN_TEXT.get_rect(center=(640, 260))
+        SCREEN.blit(LAN_TEXT, LAN_RECT)
 
-        NAME_OKE = Button(image=None, pos=(640, 460), 
+        LAN_OKE = Button(image=None, pos=(640, 460), 
                             text_input="OKE", font=get_font(30), base_color="White", hovering_color="Green")
 
-        NAME_OKE.changeColor(NAME_MOUSE_POS)
-        NAME_OKE.update(SCREEN)
+        LAN_OKE.changeColor(LAN_MOUSE_POS)
+        LAN_OKE.update(SCREEN)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if NAME_OKE.checkForInput(NAME_MOUSE_POS):
+                if LAN_OKE.checkForInput(LAN_MOUSE_POS):
                     main_menu()
 
         pygame.display.update()  
@@ -73,9 +74,11 @@ def play():
         #pygame.display.update()
 
 def options():
+    
     while True:
+       
         OPTIONS_MOUSE_POS = pygame.mouse.get_pos()
-
+     
         SCREEN.fill("white")
 
         OPTIONS_TEXT = get_font(30).render("This is the OPTIONS screen.", True, "Black")
@@ -108,8 +111,8 @@ def main_menu():
         MENU_TEXT = get_font(70).render("BOOMMAN GAME", True, "#FFFFFF")
         MENU_RECT = MENU_TEXT.get_rect(center=(655, 100))
 
-        NAME_BUTTON = Button(image=pygame.image.load("asset/menu/but.png"), pos=(640, 250), 
-                            text_input="NAME", font=get_font(30), base_color="#CCFFFF", hovering_color="White")
+        LAN_BUTTON = Button(image=pygame.image.load("asset/menu/but.png"), pos=(640, 250), 
+                            text_input="PLAY&LAN", font=get_font(30), base_color="#CCFFFF", hovering_color="White")
         PLAY_BUTTON = Button(image=pygame.image.load("asset/menu/but.png"), pos=(640, 370), 
                             text_input="PLAY", font=get_font(30), base_color="#CCFFFF", hovering_color="White")
         OPTIONS_BUTTON = Button(image=pygame.image.load("asset/menu/but.png"), pos=(640, 490), 
@@ -119,7 +122,7 @@ def main_menu():
 
         SCREEN.blit(MENU_TEXT, MENU_RECT)
 
-        for button in [NAME_BUTTON,PLAY_BUTTON, OPTIONS_BUTTON, QUIT_BUTTON]:
+        for button in [LAN_BUTTON,PLAY_BUTTON, OPTIONS_BUTTON, QUIT_BUTTON]:
             button.changeColor(MENU_MOUSE_POS)
             button.update(SCREEN)
         
@@ -128,8 +131,8 @@ def main_menu():
                 pygame.quit()
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if NAME_BUTTON.checkForInput(MENU_MOUSE_POS):
-                    name()
+                if LAN_BUTTON.checkForInput(MENU_MOUSE_POS):
+                   lan()
                 if PLAY_BUTTON.checkForInput(MENU_MOUSE_POS):
                     play()
                 if OPTIONS_BUTTON.checkForInput(MENU_MOUSE_POS):
