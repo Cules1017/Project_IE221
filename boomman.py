@@ -10,7 +10,7 @@ class Player(pygame.sprite.Sprite):
         self.Y=pos_y
         self.name="Yellow"
         self.heath=100
-        self.speed=30
+        self.speed=25
         self.point=0
         self.WIDTH=30
         self.HEIGHT=40
@@ -327,5 +327,134 @@ class PlayerTwo(Player):
                 b1=pygame.sprite.Group()
                 b1.add(boom)
                 self.boom_sprite.append(b1)
+class PlayerLan(Player):
+    def __init__(self, pos_x, pos_y,type):
+        super().__init__(pos_x, pos_y)
+        self.name="BLUE"
+        self.run_animation=[]
+        if type==0:
+            self.run_animation.append(pygame.image.load('asset/Player 4/01.gif').convert_alpha())
+            self.run_animation.append(pygame.image.load('asset/Player 4/02.gif').convert_alpha())
+            self.run_animation.append(pygame.image.load('asset/Player 4/03.gif').convert_alpha())
+            self.run_animation.append(pygame.image.load('asset/Player 4/04.gif').convert_alpha())
+            self.run_animation.append(pygame.image.load('asset/Player 4/05.gif').convert_alpha())
 
+            self.run_animation.append(pygame.image.load('asset/Player 4/11.gif').convert_alpha())
+            self.run_animation.append(pygame.image.load('asset/Player 4/12.gif').convert_alpha())
+            self.run_animation.append(pygame.image.load('asset/Player 4/13.gif').convert_alpha())
+            self.run_animation.append(pygame.image.load('asset/Player 4/14.gif').convert_alpha())
+            self.run_animation.append(pygame.image.load('asset/Player 4/15.gif').convert_alpha())
+
+            self.run_animation.append(pygame.image.load('asset/Player 4/21.gif').convert_alpha())
+            self.run_animation.append(pygame.image.load('asset/Player 4/22.gif').convert_alpha())
+            self.run_animation.append(pygame.image.load('asset/Player 4/23.gif').convert_alpha())
+            self.run_animation.append(pygame.image.load('asset/Player 4/24.gif').convert_alpha())
+            self.run_animation.append(pygame.image.load('asset/Player 4/25.gif').convert_alpha())
+
+            self.run_animation.append(pygame.image.load('asset/Player 4/31.gif').convert_alpha())
+            self.run_animation.append(pygame.image.load('asset/Player 4/32.gif').convert_alpha())
+            self.run_animation.append(pygame.image.load('asset/Player 4/33.gif').convert_alpha())
+            self.run_animation.append(pygame.image.load('asset/Player 4/34.gif').convert_alpha())
+            self.run_animation.append(pygame.image.load('asset/Player 4/35.gif').convert_alpha())
+
+            self.run_animation.append(pygame.image.load('asset/Player 4/41.gif').convert_alpha())
+            self.run_animation.append(pygame.image.load('asset/Player 4/42.gif').convert_alpha())
+            self.run_animation.append(pygame.image.load('asset/Player 4/43.gif').convert_alpha())
+            self.run_animation.append(pygame.image.load('asset/Player 4/44.gif').convert_alpha())
+            self.run_animation.append(pygame.image.load('asset/Player 4/45.gif').convert_alpha())
+        else:
+            self.run_animation.append(pygame.image.load('asset/Player 1/01.gif').convert_alpha())
+            self.run_animation.append(pygame.image.load('asset/Player 1/02.gif').convert_alpha())
+            self.run_animation.append(pygame.image.load('asset/Player 1/03.gif').convert_alpha())
+            self.run_animation.append(pygame.image.load('asset/Player 1/04.gif').convert_alpha())
+            self.run_animation.append(pygame.image.load('asset/Player 1/05.gif').convert_alpha())
+
+            self.run_animation.append(pygame.image.load('asset/Player 1/11.gif').convert_alpha())
+            self.run_animation.append(pygame.image.load('asset/Player 1/12.gif').convert_alpha())
+            self.run_animation.append(pygame.image.load('asset/Player 1/13.gif').convert_alpha())
+            self.run_animation.append(pygame.image.load('asset/Player 1/14.gif').convert_alpha())
+            self.run_animation.append(pygame.image.load('asset/Player 1/15.gif').convert_alpha())
+
+            self.run_animation.append(pygame.image.load('asset/Player 1/21.gif').convert_alpha())
+            self.run_animation.append(pygame.image.load('asset/Player 1/22.gif').convert_alpha())
+            self.run_animation.append(pygame.image.load('asset/Player 1/23.gif').convert_alpha())
+            self.run_animation.append(pygame.image.load('asset/Player 1/24.gif').convert_alpha())
+            self.run_animation.append(pygame.image.load('asset/Player 1/25.gif').convert_alpha())
+
+            self.run_animation.append(pygame.image.load('asset/Player 1/31.gif').convert_alpha())
+            self.run_animation.append(pygame.image.load('asset/Player 1/32.gif').convert_alpha())
+            self.run_animation.append(pygame.image.load('asset/Player 1/33.gif').convert_alpha())
+            self.run_animation.append(pygame.image.load('asset/Player 1/34.gif').convert_alpha())
+            self.run_animation.append(pygame.image.load('asset/Player 1/35.gif').convert_alpha())
+
+            self.run_animation.append(pygame.image.load('asset/Player 1/41.gif').convert_alpha())
+            self.run_animation.append(pygame.image.load('asset/Player 1/42.gif').convert_alpha())
+            self.run_animation.append(pygame.image.load('asset/Player 1/43.gif').convert_alpha())
+            self.run_animation.append(pygame.image.load('asset/Player 1/44.gif').convert_alpha())
+            self.run_animation.append(pygame.image.load('asset/Player 1/45.gif').convert_alpha())
+    def move(self,map,*players):
+        orig_x=self.X
+        orig_y=self.Y
+        
+        # if self.rect.collidelist(map.Barri1)!=1:
+        #     print('cham')
+        #     self.X=orig_x
+        #     self.Y=orig_y
+        #     self.rect.topleft=[orig_x,orig_y]
+        self.rect.colliderect(self)
+        enemymap=map.fireLR+map.fireBT
+        for brick in map.Barri1:
+            if brick.rect.colliderect(self):
+                self.X=orig_x
+                self.Y=orig_y
+                self.rect.topleft=[orig_x,orig_y]
+        # for b in self.boom:
+        #     if b.exploy_boom==None:
+        #         print('hahah')
+        #     if b.exploy_boom!=None:
+        #         print("Có Boom")
+        #         if b.exploy_boom.rect.colliderect(self):
+        #             self.being_attacked(20)
+        for enemy in enemymap:
+            enemy.acttack(self)
+        index_item=self.rect.collidelist(map.item)
+        if index_item!=-1:
+                x=int(map.item[index_item].X/50)
+                y=int(map.item[index_item].Y/50) 
+                map.filemap[y][x]=0
+                map.item[index_item].acttack(self)
+                map.item.remove(map.item[index_item])
+        # for it in map.item:
+        #     it.acttack(self)
+        #     if it.rect.colliderect(self):
+        #         x=int(map.it[index].X/50)
+        #         y=int(barri.Barri2[index].Y/50)
+        #         barri.filemap[y][x]=random.randint(5,7)
+        #         map.item.remove(it)
+        #         print(len(map.item))
+        for brick in map.Barri2:
+            if brick.rect.colliderect(self):
+                self.X=orig_x
+                self.Y=orig_y
+                self.rect.topleft=[orig_x,orig_y]
+        self.checkboom(players,map,orig_x,orig_y)
+
+        # for playeri in players:
+        #     if playeri.rect.colliderect(self):
+        #         self.X=orig_x
+        #         self.Y=orig_y
+        #         self.rect.topleft=[orig_x,orig_y]
+        #     for b in playeri.boom:
+        #         if b.exploy_boom!=None:
+        #             if b.exploy_boom.rect.colliderect(self):
+        #                 self.being_attacked(20)
+    def put_boom(self):
+        self.boom_real-=1
+        boom=Boom(self.X-10,self.Y-5)
+        boom.sound.play()
+        boom.time = pygame.time.get_ticks()
+        self.boom.append(boom)
+        b1=pygame.sprite.Group()
+        b1.add(boom)
+        self.boom_sprite.append(b1)
     

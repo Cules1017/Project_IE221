@@ -80,6 +80,10 @@ class Mapgame():
                     temp=addbomm(col*50,row*50)
                     temp.draw(screen,col,row)
                     self.item.append(temp)
+                elif(self.filemap[row][col]==9):
+                    temp1=Stone1(col*50,row*50)
+                    temp1.draw(screen,col,row)
+                    self.Barri1.append(temp1)
                 elif(self.filemap[row][col]==19):
                     temp0=Sandgrey_bg(col*50,row*50)
                     temp0.draw(screen,col,row)

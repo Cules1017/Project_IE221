@@ -1,4 +1,5 @@
 import pygame
+from pygame import mixer
 
 class item():
     def __init__(self,pos_x,pos_y) -> None:
@@ -11,9 +12,11 @@ class item():
         self.addboom=0
         self.image=None
         self.rect =None
+        self.sound=pygame.mixer.Sound('asset/sound/XU.mp3')
     def draw(self,screen,col,row):
         screen.blit(self.image,(col*50,row*50))
     def acttack(self,player):
+            self.sound.play()
             player.heath=player.heath+self.addheath
             player.heath=player.heath
             player.speed+=self.addspeed
@@ -25,21 +28,21 @@ class emergency(item):
     def __init__(self,pos_x,pos_y) -> None:
         super().__init__(pos_x,pos_y)
         self.addheath=20
-        self.image=pygame.transform.scale(pygame.image.load('asset/item/capcuu.jpg'),(50,50))
+        self.image=pygame.transform.scale(pygame.image.load('asset/item/capcuu.gif'),(50,50))
         self.rect = self.image.get_rect()
         self.rect.center= [self.X,self.Y]
 class dulicate(item):
     def __init__(self,pos_x,pos_y) -> None:
         super().__init__(pos_x,pos_y)
         self.addheath=15
-        self.image=pygame.transform.scale(pygame.image.load('asset/item/1x.jpg'),(50,50))
+        self.image=pygame.transform.scale(pygame.image.load('asset/item/1x.gif'),(50,50))
         self.rect = self.image.get_rect()
         self.rect.center= [self.X,self.Y]
 class speed(item):
     def __init__(self,pos_x,pos_y) -> None:
         super().__init__(pos_x,pos_y)
         self.addspeed=5
-        self.image=pygame.transform.scale(pygame.image.load('asset/item/speed.jpg'),(50,50))
+        self.image=pygame.transform.scale(pygame.image.load('asset/item/speed.gif'),(50,50))
         self.rect = self.image.get_rect()
         self.rect.center= [self.X,self.Y]
 

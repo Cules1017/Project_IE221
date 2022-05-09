@@ -6,6 +6,7 @@ class autoplay(Player):
         self.decideBoom=random.randint(0,2)
         self.name="RED"
         self.boom=[]
+        self.heath=150
         self.last_put=0
         self.last_turn=0
         self.now1=pygame.time.get_ticks()
@@ -56,19 +57,23 @@ class autoplay(Player):
         orig_x=self.X
         orig_y=self.Y
         if self.redirect==1:# and self.X>=60:
+            self.last_turn=self.now1
             self.walk_Left_Right(-0.25)
             self.action=3
         elif self.redirect==2:# and self.X<=950:
+            self.last_turn=self.now1
             self.walk_Left_Right(0.25)
             self.action=4
         elif self.redirect==3:# and self.Y>=55:
+            self.last_turn=self.now1
             self.walk_TopBottom(-0.25)
             self.action=1
         elif self.redirect==4:# and self.Y<=605:
+            self.last_turn=self.now1
             self.walk_TopBottom(0.25)
             self.action=2
-        if self.now1-self.last_turn > 7000:
-            self.redirect=random.randint(1,4)
+        # if self.now1-self.last_turn > 3000:
+        #     self.redirect=random.randint(1,4)
 
         # if self.X<=59.5:
         #     self.redirect=random.randint(1,4)
@@ -106,6 +111,7 @@ class autoplay(Player):
                 if self.now-self.last_put >= 5000:
                     self.put_boomAuto()
             enemy.acttack(self)
+            
         index_item=self.rect.collidelist(map.item)
         if index_item!=-1:
                 x=int(map.item[index_item].X/50)
