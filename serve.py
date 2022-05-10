@@ -13,6 +13,9 @@ hostname = socket.gethostname()
 ip_address = socket.gethostbyname(hostname)
 HOST = ip_address
 class Server():
+    '''Thực hiện mở máy chủ cho client kết nối 
+    Truyền dữ liệu game
+    '''
     def __init__(self):
         self.HOST = HOST  # Standard loopback interface address (localhost)
         self.PORT = 1  # Port to listen on (non-privileged ports are > 1023)

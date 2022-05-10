@@ -5,8 +5,8 @@ from item import*
 import pygame
 
 class Mapgame():
-    def __init__(self):
-        self.filemap=None
+    '''Bản đồ của game
+    render ra quái vật phẩm,....
         #TYPE 0: nền có thể di chuyển qua
         #TYPE 1: Vật thể cứng không thể di chuyển qua, có thể phá hủy theo heath
         #TYPE 2: Vật thể cứng kh thể di chuyển không thể phá hủy
@@ -16,9 +16,13 @@ class Mapgame():
         #type 6: Thuốc quí tăng 1.5 máu cho nhân vật
         #type 7: tăng tốc chạy cho nhân vật
         #Type 8: tặng cho player thêm boom
-        #Type 9: tặng coin vàng +2 point
-        #type 10: tặng coin bạc +1 point
-        #type 11: tặng sao +5 point
+        #type 9: tường đá không thể phá
+        #Type 19: tặng coin vàng +2 point
+        #type 20: tặng coin bạc +1 point
+        #type 21: tặng sao +5 point
+    '''
+    def __init__(self):
+        self.filemap=None
         self.Barri0=[]
         self.Barri1=[]
         self.Barri2=[]

@@ -4,6 +4,7 @@ from boom import *
 
 
 class Player(pygame.sprite.Sprite):
+    ''' Nhân vật trong game'''
     def __init__(self, pos_x, pos_y):
         super().__init__()
         self.X=pos_x

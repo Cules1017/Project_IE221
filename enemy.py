@@ -5,6 +5,10 @@ from boomman import Player
 
 #with action value 1:UP 2:DOWN 3:LEFT 4:RIGHT
 class fire():
+    '''Quái vật trong game
+    Làm mất máu
+    có thể sinh ra tiền sau khi bị giết
+    '''
     def __init__(self,pos_x,pos_y):
         self.X=pos_x
         self.Y=pos_y
@@ -66,6 +70,11 @@ class fire():
         
 
 class fire_LR(fire):
+    '''Quái vật trong game
+    chỉ có thể di chuyển trái phải
+    Làm mất máu
+    có thể sinh ra tiền sau khi bị giết
+    '''
     def __init__(self, pos_x, pos_y):
         super().__init__(pos_x, pos_y)
         self.action=1
@@ -76,6 +85,11 @@ class fire_LR(fire):
 
 
 class fire_TB(fire):
+    '''Quái vật trong game
+    chỉ có thể di chuyển lên xuống
+    Làm mất máu
+    có thể sinh ra tiền sau khi bị giết
+    '''
     def __init__(self, pos_x, pos_y):
         super().__init__(pos_x, pos_y)
         self.action=3

@@ -2,6 +2,9 @@ import pygame
 from pygame import mixer
 
 class item():
+    ''' Các item xuất hiện trong game 
+    xuất hiện khi giết quái hoặc phá vỡ tường gạch
+    '''
     def __init__(self,pos_x,pos_y) -> None:
         self.X=pos_x
         self.Y=pos_y
@@ -25,6 +28,8 @@ class item():
             player.point+=self.addpoint
             
 class emergency(item):
+    '''Cấp cứu giúp hồi 20 máu
+    '''
     def __init__(self,pos_x,pos_y) -> None:
         super().__init__(pos_x,pos_y)
         self.addheath=20
@@ -32,6 +37,8 @@ class emergency(item):
         self.rect = self.image.get_rect()
         self.rect.center= [self.X,self.Y]
 class dulicate(item):
+    '''Tim giúp hồi 15 máu
+    '''
     def __init__(self,pos_x,pos_y) -> None:
         super().__init__(pos_x,pos_y)
         self.addheath=15
@@ -39,6 +46,7 @@ class dulicate(item):
         self.rect = self.image.get_rect()
         self.rect.center= [self.X,self.Y]
 class speed(item):
+    '''Tăng tốc cho nhân vật'''
     def __init__(self,pos_x,pos_y) -> None:
         super().__init__(pos_x,pos_y)
         self.addspeed=5
@@ -47,6 +55,7 @@ class speed(item):
         self.rect.center= [self.X,self.Y]
 
 class addbomm(item):
+    '''Thêm Boom cho nhân vật'''
     def __init__(self,pos_x,pos_y) -> None:
         super().__init__(pos_x,pos_y)
         self.addboom=1
@@ -54,6 +63,7 @@ class addbomm(item):
         self.rect = self.image.get_rect()
         self.rect.center= [self.X,self.Y]
 class coin_gold(item):
+    '''Tăng thêm 2 tiền'''
     def __init__(self,pos_x,pos_y) -> None:
         super().__init__(pos_x,pos_y)
         self.addpoint=2
@@ -61,6 +71,7 @@ class coin_gold(item):
         self.rect = self.image.get_rect()
         self.rect.center= [self.X,self.Y]
 class coin_silver(item):
+    '''Tăng 1 tiền'''
     def __init__(self,pos_x,pos_y) -> None:
         super().__init__(pos_x,pos_y)
         self.addpoint=1
@@ -68,6 +79,7 @@ class coin_silver(item):
         self.rect = self.image.get_rect()
         self.rect.center= [self.X,self.Y]
 class coin_star(item):
+    '''Tăng 6 tiền'''
     def __init__(self,pos_x,pos_y) -> None:
         super().__init__(pos_x,pos_y)
         self.addpoint=5
