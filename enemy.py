@@ -11,7 +11,7 @@ class fire():
         self.heath=10
         self.WIDTH=50
         self.HEIGHT=50
-        self.speed=5
+        self.speed=4
         self.action=2
         self.damage=5
         self.sound_attack=pygame.mixer.Sound('asset/sound/swoosh.ogg')

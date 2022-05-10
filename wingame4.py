@@ -104,21 +104,17 @@ def get_font(size): # Returns Press-Start-2P in the desired size
 
 def main_menu():
     while True:
-        SCREEN.blit(BG, (0, 0))
-        SCREEN.blit(the, (400, 0))
+        
 
         MENU_MOUSE_POS = pygame.mouse.get_pos()
 
         MENU_TEXT = get_font(70).render("  ", True, "#FFFFFF")
         MENU_RECT = MENU_TEXT.get_rect(center=(655, 100))
-
-        # LAN_BUTTON = Button(image=pygame.image.load("asset/menu/but.png"), pos=(640, 250), 
-        #                     text_input="PLAY&LAN", font=get_font(30), base_color="#CCFFFF", hovering_color="White")
-        # PLAY_BUTTON = Button(image=pygame.image.load("asset/menu/but.png"), pos=(640, 370), 
-        #                     text_input="PLAY", font=get_font(30), base_color="#CCFFFF", hovering_color="White")
-        # OPTIONS_BUTTON = Button(image=pygame.image.load("asset/menu/but.png"), pos=(640, 490), 
-        #                     text_input="OPTIONS", font=get_font(30), base_color="#CCFFFF", hovering_color="White")
-        QUIT_BUTTON = Button(image=pygame.image.load("asset/BomberEndGame/Enter to Continue.jpg"), pos=(640, 610), 
+        BG =  pygame.image.load("asset/BomberEndGame/wingame.png")
+        the = pygame.image.load("asset/BomberEndGame/Player 4 Wins.gif")
+        SCREEN.blit(BG, (0, 0))
+        SCREEN.blit(the, (400, 0))
+        QUIT_BUTTON = Button(image=pygame.image.load("asset/BomberEndGame/Enter to Continue.jpg").convert_alpha(), pos=(640, 610), 
                             text_input="   ", font=get_font(30), base_color="#CCFFFF", hovering_color="White")
 
         SCREEN.blit(MENU_TEXT, MENU_RECT)

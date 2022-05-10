@@ -7,7 +7,9 @@ from enemy import*
 from baner import*
 from AutoPlay import*
 import random
- 
+from serve import *
+print(sequence_num)
+
 
 pygame.init()
 screen=pygame.display.set_mode((1300,700))
@@ -42,6 +44,17 @@ panel_info=BanerInfo(player,map1)
 panel_infoBOT=BanerInfoBot(player1,map1)
 panel_infoBOT1=BanerInfoBot(player2,map1)
 panel_infoBOT1.y+=200
+def aa():
+    print(555)
+    player1.X=Server1.Datagame.X
+    player1.Y=Server1.Datagame.Y
+    print(Server1.Datagame.X)
+    print(Server1.Datagame.Y)
+
+    player1.rect.topleft=[Server1.Datagame.X,Server1.Datagame.Y]
+Server1=Server()
+Server1.AddSubscribersForLockBrokenEvent(aa)
+Server1.startServer()
 map1.render_enemy()
 
 def draw_window():
@@ -72,6 +85,7 @@ while True:
             if player1.action!=5:
                 player1.action=0
         if event.type==pygame.KEYDOWN:
+
             player.put_boom(event)
             player1.put_boom(event)
     player.move(map1,player1,player2)
