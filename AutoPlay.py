@@ -1,5 +1,6 @@
 from boomman import *
 class autoplay(Player):
+    '''Các player tự động chơi'''
     def __init__(self, pos_x, pos_y):
         super().__init__(pos_x, pos_y)
         self.redirect=random.randint(1,4)

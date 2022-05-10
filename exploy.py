@@ -1,6 +1,10 @@
 import pygame
 
 class boom1_exploy(pygame.sprite.Sprite):
+    '''Đây là vụ nổ sau khi boom đã nổ
+    gây xác thương đến người chơi
+    có thể phá vỡ gạch
+    '''
     def __init__(self,pos_x,pos_y,pow):
         super().__init__()
         self.X=pos_x-5

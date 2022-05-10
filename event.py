@@ -1,6 +1,6 @@
 
 class event(object):
- 
+    '''Thêm các hàm chưa có  (lập trình sự kiện)'''
     def __init__(self):
         self.__eventhandlers = []
  
