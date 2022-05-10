@@ -342,7 +342,7 @@ class PlayLan(game):
         self.Panel_Pl2=BanerInfoBot(self.ortherplayer,self.mapGame)
         self.Panel_Pl2.y+=200
         self.pointWin=100
-        self.mapGame=Mapgame()
+        self.mapGame=MapgameLAN()
         self.mapGame.filemap=map1
         self.HOST='Host'
         self.PORT=5
@@ -350,6 +350,7 @@ class PlayLan(game):
         self.Connected=False  
         self.msgconnect="Watting for connecting..."
         self.server=Server()
+        self.msg=''
         self.server.AddSubscribersForLockBrokenEvent(self.handleLan)
     def createClient(self):
         self.client=Client(self.HOST,int(self.PORT))
@@ -359,6 +360,7 @@ class PlayLan(game):
             self.client.ConnectToServer()
         else:
             self.player=PlayerLan1(950,600)
+            self.player.name="BLUE"
             self.player.run_animation=[]
             self.player.run_animation.append(pygame.image.load('asset/Player 4/01.gif').convert_alpha())
             self.player.run_animation.append(pygame.image.load('asset/Player 4/02.gif').convert_alpha())
@@ -394,32 +396,31 @@ class PlayLan(game):
     def handleLan(self):
         orig_x=self.ortherplayer.X
         orig_y=self.ortherplayer.Y
-        if( self.server.Datagame.move_i==1 and   self.ortherplayer.X>=60 and self.lanmove):
+        if( self.server.Datagame.move_i==1 and   self.ortherplayer.X>=60 ):
              self.ortherplayer.walk_Left_Right(-0.25)
              self.ortherplayer.action=3
-        elif( self.server.Datagame.move_i==2 and  self.ortherplayer.X<=950 and self.lanmove):
+        elif( self.server.Datagame.move_i==2 and  self.ortherplayer.X<=950 ):
              self.ortherplayer.walk_Left_Right(0.25)
              self.ortherplayer.action=4
-        elif( self.server.Datagame.move_i==3 and  self.ortherplayer.Y>=55 and self.lanmove):
+        elif( self.server.Datagame.move_i==3 and  self.ortherplayer.Y>=55 ):
              self.ortherplayer.walk_TopBottom(-0.25)
              self.ortherplayer.action=1
-        elif( self.server.Datagame.move_i==4 and  self.ortherplayer.Y<=605 and self.lanmove):
+        elif( self.server.Datagame.move_i==4 and  self.ortherplayer.Y<=605 ):
              self.ortherplayer.walk_TopBottom(0.25)
              self.ortherplayer.action=2
         if( self.server.Datagame.put_boom==1):
              self.ortherplayer.put_boom()
         if self.isclient:
-            #self.map=self.client.Datagame.map
-            if( self.client.Datagame.move_i==1 and   self.ortherplayer.X>=60 and self.lanmove):
+            if( self.client.Datagame.move_i==1 and   self.ortherplayer.X>=60 ):
                 self.ortherplayer.walk_Left_Right(-0.25)
                 self.ortherplayer.action=3
-            elif( self.client.Datagame.move_i==2 and  self.ortherplayer.X<=950 and self.lanmove):
+            elif( self.client.Datagame.move_i==2 and  self.ortherplayer.X<=950 ):
                 self.ortherplayer.walk_Left_Right(0.25)
                 self.ortherplayer.action=4
-            elif( self.client.Datagame.move_i==3 and  self.ortherplayer.Y>=55 and self.lanmove):
+            elif( self.client.Datagame.move_i==3 and  self.ortherplayer.Y>=55 ):
                 self.ortherplayer.walk_TopBottom(-0.25)
                 self.ortherplayer.action=1
-            elif( self.client.Datagame.move_i==4 and  self.ortherplayer.Y<=605 and self.lanmove):
+            elif( self.client.Datagame.move_i==4 and  self.ortherplayer.Y<=605 ):
                 self.ortherplayer.walk_TopBottom(0.25)
                 self.ortherplayer.action=2
             if( self.client.Datagame.put_boom==1):
@@ -480,13 +481,34 @@ class PlayLan(game):
         self.ortherplayer.move(self.mapGame,self.player)
         self.player.update(0.01)
         self.ortherplayer.update(0.01)
+        if self.player.checkdie():
+            self.player.speed=0
+        if self.ortherplayer.checkdie():
+            self.ortherplayer.speed=0
             
     def checkWin(self):
-        pass
+        if self.player.checkdie():
+            self.msg=self.ortherplayer.name+" WIN GAME"
+            self.win=2
+            return True
+        if self.ortherplayer.checkdie():
+            self.msg=self.player.name+" WIN GAME"
+            self.win=1
+            return True
+        if self.pointWin<=self.player.point:
+            self.msg=self.player.name+" WIN GAME"
+            self.win=1
+            return True
+        if self.pointWin<=self.ortherplayer.point:
+            self.msg=self.ortherplayer.name+" WIN GAME"
+            self.win=2
+            return True
     def checkGameOver(self):
         if self.pointWin>self.player.point and self.player.boom_real==0:
+            self.win=2
             return True
-        if self.player.checkdie():
+        if self.pointWin>self.ortherplayer.point and self.ortherplayer.boom_real==0:
+            self.win=1
             return True
     def startgame(self):
         self.mapGame.render_enemy()

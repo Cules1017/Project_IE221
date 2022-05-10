@@ -8,6 +8,7 @@ from game import *
 
 import pygame_menu
 pygame.init()
+vollum=30
 P='26.156.239.113'
 IP=111
 FPS=30
@@ -16,6 +17,7 @@ SCREEN = pygame.display.set_mode((1280, 700))
 pygame.display.set_caption("Menu")
 mixer.music.load('asset/sound/mneu.mp3')
 mixer.music.play(-1)
+mixer.music.set_volume(vollum)
 BG = pygame.image.load("asset/menu/taigameboom.gif")
 BGwin =pygame.transform.scale(pygame.image.load("asset/banner/win.jpg"),(1280, 700))  
 the=  pygame.image.load("asset/menu/td.gif")
@@ -53,7 +55,7 @@ def Twoplay():
     music= random.randint(0, 2)
     mixer.music.load('asset/sound/'+str(music)+'bg.mp3')
     mixer.music.play(-1)
-    mixer.music.set_volume(50)
+    mixer.music.set_volume(vollum)
     Game1=GameTwoPL()
     Game1.startgame()
     while True:
@@ -68,7 +70,7 @@ def Oneplay():
     music= random.randint(0, 2)
     mixer.music.load('asset/sound/'+str(music)+'bg.mp3')
     mixer.music.play(-1)
-    mixer.music.set_volume(50)
+    mixer.music.set_volume(vollum)
     Game1=GameOnePL_PC()
     Game1.startgame()
     while True:
@@ -83,7 +85,7 @@ def Campaign():
     music= random.randint(0, 2)
     mixer.music.load('asset/sound/'+str(music)+'bg.mp3')
     mixer.music.play(-1)
-    mixer.music.set_volume(50)
+    mixer.music.set_volume(vollum)
     Game1=Kill_mons()
     Game1.startgame()
     while True:
@@ -97,7 +99,7 @@ def Campaign():
 def GameOver(i,msg):
     mixer.music.load('asset/sound/GOV.mp3')
     mixer.music.play()
-    mixer.music.set_volume(50)
+    mixer.music.set_volume(vollum)
     while True:
         SCREEN.fill((125,155,255))
         SCREEN.blit(Gov, (0, 0))
@@ -174,7 +176,7 @@ def EndGame(i,msg):
 def Wingame(i,msg):
     mixer.music.load('asset/sound/WIN.mp3')
     mixer.music.play()
-    mixer.music.set_volume(50)
+    mixer.music.set_volume(vollum)
     while True:
         SCREEN.fill((125,155,255))
         SCREEN.blit(BGwin, (0, 0))
@@ -204,34 +206,22 @@ def Wingame(i,msg):
                     elif i==3:
                         Twoplay()
         pygame.display.update()
-    
+
+def ONvolume(value,s):
+    global vollum
+    if value[1]==1:
+        vollum=0
+    else:
+        vollum=30
+    mixer.music.set_volume(vollum)
 def options():
-    
-    while True:
-       
-        OPTIONS_MOUSE_POS = pygame.mouse.get_pos()
-     
-        SCREEN.fill("white")
+    SCREEN = pygame.display.set_mode((1280, 700))
+    menu = pygame_menu.Menu('OPTIONS', 1280, 700,
+                    theme=pygame_menu.themes.THEME_BLUE)
+    menu.add.selector('Soundtrack', [('ON', 1), ('OFF', 2)], onchange=ONvolume)
+    menu.add.button('QUIT', main_menu)
+    menu.mainloop(SCREEN)
 
-        OPTIONS_TEXT = get_font(30).render("This is the OPTIONS screen.", True, "Black")
-        OPTIONS_RECT = OPTIONS_TEXT.get_rect(center=(640, 260))
-        SCREEN.blit(OPTIONS_TEXT, OPTIONS_RECT)
-
-        OPTIONS_BACK = Button(image=None, pos=(640, 460), 
-                            text_input="BACK", font=get_font(30), base_color="Black", hovering_color="Green")
-
-        OPTIONS_BACK.changeColor(OPTIONS_MOUSE_POS)
-        OPTIONS_BACK.update(SCREEN)
-
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if OPTIONS_BACK.checkForInput(OPTIONS_MOUSE_POS):
-                    main_menu()
-
-        pygame.display.update()
 def sellectMode():
     BG = pygame.image.load("asset/menu/taigameboom.gif")
     the=  pygame.image.load("asset/menu/td.gif")
@@ -316,9 +306,9 @@ def sendMsGPL():
         Game.ingameLOGIC()
         Game.drawWindow(SCREEN)
         if Game.checkWin():
-            print("Gọi Màn hình Win Game")
+            EndGame(Game.win,Game.msg)
         if Game.checkGameOver():
-            print("Gọi màn hình Game OVer")
+            EndGame(Game.win,Game.msg)
 def createRoom():
     # SCREEN = pygame.display.set_mode((1280, 700))
     menu = pygame_menu.Menu('Create ROOM', 1280, 700,
@@ -351,33 +341,7 @@ def JoinRoomLan():
     menu.mainloop(SCREEN)
 def ConnectedClient():
     Game.Connected=True
-    print("PPPP")
-    # SCREEN = pygame.display.set_mode((1280, 700))
-    # menu = pygame_menu.Menu('Connected', 1280, 700,
-    #                     theme=pygame_menu.themes.THEME_BLUE)
-    # menu.add.label(Game.msgconnect)
-    # menu.add.label("IP ADDRESS:"+str(Game.HOST))
-    # menu.add.label("PORT:"+str(Game.PORT))
-    # menu.add.button("Play",StartRoomLan)
-    # menu.add.button('Back', sellectLan)
 
-    # menu.mainloop(SCREEN)
-# def ConnectedServer():
-#     SCREEN_menu = pygame.display.set_mode((1280, 700))
-#     menu = pygame_menu.Menu('Connected', 1280, 700,
-#                         theme=pygame_menu.themes.THEME_BLUE)
-#     print("hahahah1")
-#     menu.add.label(Game.msgconnect)
-#     menu.add.label("IP ADDRESS:"+Game.HOST)
-#     menu.add.label("PORT:"+str(Game.server.PORT))
-#     menu.add.button("Play",StartRoomLan)
-#     print("hahahah2")
-#     menu.add.button('Back', sellectLan)
-#     print("hahahah3")
-    
-
-#     menu.mainloop(SCREEN_menu)
-#     print("hahahah4")
 
 def JoinRoom():
     SCREEN = pygame.display.set_mode((1280, 700))

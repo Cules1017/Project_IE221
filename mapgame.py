@@ -106,3 +106,18 @@ class Mapgame():
                     temp0=Sandgrey_bg(col*50,row*50)
                     temp0.draw(screen,col,row)
                     self.Barri0.append(temp0)
+class MapgameLAN(Mapgame):
+    def __init__(self):
+        super().__init__()
+    def render_enemy(self):
+        for row in range(len(self.filemap)):
+            for col in range(len(self.filemap[row])):
+                if(self.filemap[row][col]==3):
+                    temp=fire_LR(col*50,row*50)
+                    temp.image=pygame.transform.scale(pygame.image.load('asset/enemy/Fire/F1.gif'),(temp.WIDTH,temp.HEIGHT))
+                    self.fireLR.append(temp)
+                elif(self.filemap[row][col]==4):
+                    temp=fire_TB(col*50,row*50)
+                    temp.image=pygame.transform.scale(pygame.image.load('asset/enemy/Fire/F1.gif'),(temp.WIDTH,temp.HEIGHT))
+                    self.fireBT.append(temp)
+    
