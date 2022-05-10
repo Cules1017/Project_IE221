@@ -1,5 +1,7 @@
 from msilib.schema import Class
+from operator import truediv
 from select import select
+from tkinter.tix import Tree
 import pygame
 import sys
 from boomman import *
@@ -227,6 +229,7 @@ class GameTwoPL(game):
         self.Panel_Pl4.y+=260
         self.pointWin=1
         self.msg=''
+        self.win=0
         self.mapGame=Mapgame()
         i=random.randint(0,1)
         self.mapGame.filemap=self.map[i]
@@ -259,24 +262,41 @@ class GameTwoPL(game):
             self.Player1.speed=0
             
     def checkWin(self):
+        if self.Player1.checkdie():
+            self.msg=self.Player2.name+" WIN GAME"
+            self.win=2
+            return True
+        if self.Player2.checkdie():
+            self.msg=self.Player1.name+" WIN GAME"
+            self.win=1
+            return True
         if self.pointWin<=self.Player1.point:
-            self.msg=self.Player1.name+"WIN GAME"
+            self.msg=self.Player1.name+" WIN GAME"
+            self.win=1
             return True
         if self.pointWin<=self.Player2.point:
-            self.msg=self.Player2.name+"WIN GAME"
+            self.msg=self.Player2.name+" WIN GAME"
+            self.win=2
             return True
         
         
     def checkGameOver(self):
         if self.pointWin<=self.Player3.point:
-            self.msg=self.Player3.name+"WIN GAME"
+            self.msg='DRAW '+self.Player3.name+" WIN GAME"
             return True
         if self.pointWin<=self.Player4.point:
-            self.msg=self.Player1.name+"WIN GAME"
+            self.msg='DRAW '+self.Player4.name+" WIN GAME"
             return True
         if self.pointWin>self.Player1.point and self.Player1.boom_real==0:
+            self.msg=self.Player2.name+" WIN GAME"
+            self.win=2
             return True
         if self.pointWin>self.Player2.point and self.Player2.boom_real==0:
+            self.msg=self.Player1.name+" WIN GAME"
+            self.win=1
+            return True
+        if (self.pointWin>self.Player1.point and self.Player1.boom_real==0) and (self.pointWin>self.Player2.point and self.Player2.boom_real==0):
+            self.msg="DRAW Not enough pass points"
             return True
         if self.Player1.checkdie() and self.Player2.checkdie():
             return True
@@ -291,8 +311,16 @@ class GameTwoPL(game):
         self.mapGame.draw(screen)
         self.Player1.draw(screen)
         self.Player2.draw(screen)
-        self.Player3.draw(screen)
-        self.Player4.draw(screen)
+        for Playeri in [self.Player3,self.Player4]:
+            if Playeri.heath>0:
+                Playeri.draw(screen)
+            elif Playeri.heath<=0:
+                Playeri.X=0
+                Playeri.Y=0
+                Playeri.rect.topleft= [0,0]
+                Playeri.heath=0
+                Playeri.boom_num=0
+                Playeri.boom_real=0
         self.mapGame.draw_enemy(screen,self.mapGame)
         self.Panel_Pl1.draw(screen)
         self.Panel_Pl1.update(self.Player1)
@@ -308,7 +336,7 @@ class GameTwoPL(game):
 class PlayLan(game):
     def __init__(self):
         super().__init__()
-        self.player=Player(50,600)
+        self.player=PlayerLan1(50,600)
         self.ortherplayer=PlayerLan(950,600,0)
         self.Panel_Pl1=BanerInfo(self.player,self.mapGame)
         self.Panel_Pl2=BanerInfoBot(self.ortherplayer,self.mapGame)
@@ -330,41 +358,86 @@ class PlayLan(game):
         if self.isclient:
             self.client.ConnectToServer()
         else:
-            self.player=Player(950,600)
-            self.ortherplayer=PlayerLan(50,600,0)
+            self.player=PlayerLan1(950,600)
+            self.player.run_animation=[]
+            self.player.run_animation.append(pygame.image.load('asset/Player 4/01.gif').convert_alpha())
+            self.player.run_animation.append(pygame.image.load('asset/Player 4/02.gif').convert_alpha())
+            self.player.run_animation.append(pygame.image.load('asset/Player 4/03.gif').convert_alpha())
+            self.player.run_animation.append(pygame.image.load('asset/Player 4/04.gif').convert_alpha())
+            self.player.run_animation.append(pygame.image.load('asset/Player 4/05.gif').convert_alpha())
+
+            self.player.run_animation.append(pygame.image.load('asset/Player 4/11.gif').convert_alpha())
+            self.player.run_animation.append(pygame.image.load('asset/Player 4/12.gif').convert_alpha())
+            self.player.run_animation.append(pygame.image.load('asset/Player 4/13.gif').convert_alpha())
+            self.player.run_animation.append(pygame.image.load('asset/Player 4/14.gif').convert_alpha())
+            self.player.run_animation.append(pygame.image.load('asset/Player 4/15.gif').convert_alpha())
+
+            self.player.run_animation.append(pygame.image.load('asset/Player 4/21.gif').convert_alpha())
+            self.player.run_animation.append(pygame.image.load('asset/Player 4/22.gif').convert_alpha())
+            self.player.run_animation.append(pygame.image.load('asset/Player 4/23.gif').convert_alpha())
+            self.player.run_animation.append(pygame.image.load('asset/Player 4/24.gif').convert_alpha())
+            self.player.run_animation.append(pygame.image.load('asset/Player 4/25.gif').convert_alpha())
+
+            self.player.run_animation.append(pygame.image.load('asset/Player 4/31.gif').convert_alpha())
+            self.player.run_animation.append(pygame.image.load('asset/Player 4/32.gif').convert_alpha())
+            self.player.run_animation.append(pygame.image.load('asset/Player 4/33.gif').convert_alpha())
+            self.player.run_animation.append(pygame.image.load('asset/Player 4/34.gif').convert_alpha())
+            self.player.run_animation.append(pygame.image.load('asset/Player 4/35.gif').convert_alpha())
+
+            self.player.run_animation.append(pygame.image.load('asset/Player 4/41.gif').convert_alpha())
+            self.player.run_animation.append(pygame.image.load('asset/Player 4/42.gif').convert_alpha())
+            self.player.run_animation.append(pygame.image.load('asset/Player 4/43.gif').convert_alpha())
+            self.player.run_animation.append(pygame.image.load('asset/Player 4/44.gif').convert_alpha())
+            self.player.run_animation.append(pygame.image.load('asset/Player 4/45.gif').convert_alpha())
+            self.ortherplayer=PlayerLan(50,600,1)
             self.server.startServer()
     def handleLan(self):
-        if( self.server.Datagame.move_i==1 and   self.ortherplayer.X>=60):
+        orig_x=self.ortherplayer.X
+        orig_y=self.ortherplayer.Y
+        if( self.server.Datagame.move_i==1 and   self.ortherplayer.X>=60 and self.lanmove):
              self.ortherplayer.walk_Left_Right(-0.25)
              self.ortherplayer.action=3
-        elif( self.server.Datagame.move_i==2 and  self.ortherplayer.X<=950):
+        elif( self.server.Datagame.move_i==2 and  self.ortherplayer.X<=950 and self.lanmove):
              self.ortherplayer.walk_Left_Right(0.25)
              self.ortherplayer.action=4
-        elif( self.server.Datagame.move_i==3 and  self.ortherplayer.Y>=55):
+        elif( self.server.Datagame.move_i==3 and  self.ortherplayer.Y>=55 and self.lanmove):
              self.ortherplayer.walk_TopBottom(-0.25)
              self.ortherplayer.action=1
-        elif( self.server.Datagame.move_i==4 and  self.ortherplayer.Y<=605):
+        elif( self.server.Datagame.move_i==4 and  self.ortherplayer.Y<=605 and self.lanmove):
              self.ortherplayer.walk_TopBottom(0.25)
              self.ortherplayer.action=2
         if( self.server.Datagame.put_boom==1):
              self.ortherplayer.put_boom()
-        if( self.client.Datagame.move_i==1 and   self.ortherplayer.X>=60):
-             self.ortherplayer.walk_Left_Right(-0.25)
-             self.ortherplayer.action=3
-        elif( self.client.Datagame.move_i==2 and  self.ortherplayer.X<=950):
-             self.ortherplayer.walk_Left_Right(0.25)
-             self.ortherplayer.action=4
-        elif( self.client.Datagame.move_i==3 and  self.ortherplayer.Y>=55):
-             self.ortherplayer.walk_TopBottom(-0.25)
-             self.ortherplayer.action=1
-        elif( self.client.Datagame.move_i==4 and  self.ortherplayer.Y<=605):
-             self.ortherplayer.walk_TopBottom(0.25)
-             self.ortherplayer.action=2
-        if( self.client.Datagame.put_boom==1):
-             self.ortherplayer.put_boom()
-        if( self.client.Datagame.put_boom==5):
-            self.msgconnect="Connected to Server..."
-            print(self.msgconnect)
+        if self.isclient:
+            #self.map=self.client.Datagame.map
+            if( self.client.Datagame.move_i==1 and   self.ortherplayer.X>=60 and self.lanmove):
+                self.ortherplayer.walk_Left_Right(-0.25)
+                self.ortherplayer.action=3
+            elif( self.client.Datagame.move_i==2 and  self.ortherplayer.X<=950 and self.lanmove):
+                self.ortherplayer.walk_Left_Right(0.25)
+                self.ortherplayer.action=4
+            elif( self.client.Datagame.move_i==3 and  self.ortherplayer.Y>=55 and self.lanmove):
+                self.ortherplayer.walk_TopBottom(-0.25)
+                self.ortherplayer.action=1
+            elif( self.client.Datagame.move_i==4 and  self.ortherplayer.Y<=605 and self.lanmove):
+                self.ortherplayer.walk_TopBottom(0.25)
+                self.ortherplayer.action=2
+            if( self.client.Datagame.put_boom==1):
+                self.ortherplayer.put_boom()
+            if( self.client.Datagame.put_boom==5):
+                self.msgconnect="Connected to Server..."
+                print(self.msgconnect)
+        for brick in self.mapGame.Barri1:
+            if brick.rect.colliderect(self.ortherplayer):
+                self.ortherplayer.X=orig_x
+                self.ortherplayer.Y=orig_y
+                self.ortherplayer.rect.topleft=[orig_x,orig_y]
+        for brick in self.mapGame.Barri2:
+            if brick.rect.colliderect(self.ortherplayer):
+                self.ortherplayer.X=orig_x
+                self.ortherplayer.Y=orig_y
+                self.ortherplayer.rect.topleft=[orig_x,orig_y]
+        self.ortherplayer.checkboom([self.player],self.mapGame,orig_x,orig_y)
 
     def ingameLOGIC(self):
         for event in pygame.event.get():

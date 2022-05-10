@@ -76,3 +76,34 @@ class Boom(pygame.sprite.Sprite):
         self.image = pygame.transform.smoothscale(self.boom_animation[int(self.current_animation)], (self.WIDTH,self.HEIGHT))
         self.rect = self.image.get_rect()
         self.rect.topleft = [self.X,self.Y]
+class BoomPlayLan(Boom):
+    def __init__(self, pos_x, pos_y):
+        super().__init__(pos_x, pos_y)
+    def destroy(self, barri,player):
+        # print(self.exploy_boom!=None )
+        if self.exploy_boom!=None:
+            #print(player.name)
+            if self.exploy_boom.rect.colliderect(player):
+                player.being_attacked(20)
+            index=self.exploy_boom.rect.collidelist(barri.Barri2)
+            index_eneLR=self.exploy_boom.rect.collidelist(barri.fireLR)
+            index_eneBT=self.exploy_boom.rect.collidelist(barri.fireBT)
+            if index_eneBT!=-1:
+                player.point+=1
+                print(player.name)
+                x=int(barri.fireBT[index_eneBT].X/50)
+                y=int(barri.fireBT[index_eneBT].Y/50) 
+                barri.filemap[y][x]=0
+                barri.fireBT.remove(barri.fireBT[index_eneBT])
+            if index_eneLR!=-1:
+                player.point+=1
+                print(player.name)
+                x=int(barri.fireLR[index_eneLR].X/50)
+                y=int(barri.fireLR[index_eneLR].Y/50) 
+                barri.filemap[y][x]=0
+                barri.fireLR.remove(barri.fireLR[index_eneLR])
+            if index!=-1:
+                x=int(barri.Barri2[index].X/50)
+                y=int(barri.Barri2[index].Y/50)
+                barri.filemap[y][x]=0
+                barri.Barri2.remove(barri.Barri2[index])

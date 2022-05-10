@@ -1,3 +1,4 @@
+from ast import While
 from sqlite3 import connect
 import pygame, sys
 from button import Button
@@ -60,9 +61,9 @@ def Twoplay():
         Game1.ingameLOGIC()
         Game1.drawWindow(SCREEN)
         if Game1.checkWin():
-            Wingame(3,Game1.msg)
+            EndGame(Game1.win,Game1.msg)
         if Game1.checkGameOver():
-            GameOver(3,Game1.msg)
+            EndGame(Game1.win,Game1.msg)
 def Oneplay():
     music= random.randint(0, 2)
     mixer.music.load('asset/sound/'+str(music)+'bg.mp3')
@@ -128,6 +129,47 @@ def GameOver(i,msg):
                         Oneplay()
                     elif i==3:
                         Twoplay()
+        pygame.display.update()
+def EndGame(i,msg):
+    mixer.music.load('asset/sound/WIN.mp3')
+    mixer.music.play()
+    mixer.music.set_volume(50)
+    BGEG =  pygame.image.load("asset/BomberEndGame/wingame.gif").convert_alpha()
+    the=pygame.image.load("asset/BomberEndGame/Draw.gif").convert_alpha()
+    if i==1:
+        the = pygame.image.load("asset/BomberEndGame/Player 1 Wins.gif").convert_alpha()
+    elif i==2:
+        the = pygame.image.load("asset/BomberEndGame/Player 4 Wins.gif").convert_alpha()
+    while True:
+        SCREEN.fill((125,155,255))
+        SCREEN.blit(BGEG, (0, 0))
+        if i==1 or i==2:
+            SCREEN.blit(the, (400, 0))
+            MENU_TEXT = get_font(50).render(msg, True, "#111111")
+            MENU_RECT = MENU_TEXT.get_rect(center=(655, 300))
+        else:
+            SCREEN.blit(the, (400, 200))
+            MENU_TEXT = get_font(50).render(msg, True, "#111111")
+            MENU_RECT = MENU_TEXT.get_rect(center=(655, 100))
+        
+        MENU_MOUSE_POS = pygame.mouse.get_pos()
+        QUIT_BUTTON = Button(image=pygame.transform.scale(pygame.image.load("asset/menu/but.gif"),(300,100)), pos=(500, 610), 
+                            text_input="Back", font=get_font(19), base_color="#CCFFFF", hovering_color="White")
+        AGAIN_BUTTON = Button(image=pygame.transform.scale(pygame.image.load("asset/menu/but.gif"),(300,100)), pos=(800, 610), 
+                            text_input="Play AGain", font=get_font(19), base_color="#CCFFFF", hovering_color="White")
+        for button in [QUIT_BUTTON,AGAIN_BUTTON]:
+            button.changeColor(MENU_MOUSE_POS)
+            button.update(SCREEN)
+        SCREEN.blit(MENU_TEXT, MENU_RECT)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
+                    main_menu()
+                if AGAIN_BUTTON.checkForInput(MENU_MOUSE_POS):
+                    Twoplay()
         pygame.display.update()
 def Wingame(i,msg):
     mixer.music.load('asset/sound/WIN.mp3')

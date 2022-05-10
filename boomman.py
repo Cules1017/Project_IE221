@@ -395,26 +395,14 @@ class PlayerLan(Player):
     def move(self,map,*players):
         orig_x=self.X
         orig_y=self.Y
-        
-        # if self.rect.collidelist(map.Barri1)!=1:
-        #     print('cham')
-        #     self.X=orig_x
-        #     self.Y=orig_y
-        #     self.rect.topleft=[orig_x,orig_y]
         self.rect.colliderect(self)
         enemymap=map.fireLR+map.fireBT
         for brick in map.Barri1:
             if brick.rect.colliderect(self):
+                print("Chạm")
                 self.X=orig_x
                 self.Y=orig_y
                 self.rect.topleft=[orig_x,orig_y]
-        # for b in self.boom:
-        #     if b.exploy_boom==None:
-        #         print('hahah')
-        #     if b.exploy_boom!=None:
-        #         print("Có Boom")
-        #         if b.exploy_boom.rect.colliderect(self):
-        #             self.being_attacked(20)
         for enemy in enemymap:
             enemy.acttack(self)
         index_item=self.rect.collidelist(map.item)
@@ -424,37 +412,33 @@ class PlayerLan(Player):
                 map.filemap[y][x]=0
                 map.item[index_item].acttack(self)
                 map.item.remove(map.item[index_item])
-        # for it in map.item:
-        #     it.acttack(self)
-        #     if it.rect.colliderect(self):
-        #         x=int(map.it[index].X/50)
-        #         y=int(barri.Barri2[index].Y/50)
-        #         barri.filemap[y][x]=random.randint(5,7)
-        #         map.item.remove(it)
-        #         print(len(map.item))
         for brick in map.Barri2:
             if brick.rect.colliderect(self):
+                print("Chạm")
                 self.X=orig_x
                 self.Y=orig_y
                 self.rect.topleft=[orig_x,orig_y]
         self.checkboom(players,map,orig_x,orig_y)
-
-        # for playeri in players:
-        #     if playeri.rect.colliderect(self):
-        #         self.X=orig_x
-        #         self.Y=orig_y
-        #         self.rect.topleft=[orig_x,orig_y]
-        #     for b in playeri.boom:
-        #         if b.exploy_boom!=None:
-        #             if b.exploy_boom.rect.colliderect(self):
-        #                 self.being_attacked(20)
     def put_boom(self):
         self.boom_real-=1
-        boom=Boom(self.X-10,self.Y-5)
+        boom=BoomPlayLan(self.X-10,self.Y-5)
         boom.sound.play()
         boom.time = pygame.time.get_ticks()
         self.boom.append(boom)
         b1=pygame.sprite.Group()
         b1.add(boom)
         self.boom_sprite.append(b1)
-    
+class PlayerLan1(Player):
+    def __init__(self, pos_x, pos_y):
+        super().__init__(pos_x, pos_y)  
+    def put_boom(self,event):
+        if event.key==pygame.K_SPACE:
+            if len(self.boom)<=self.boom_num:
+                self.boom_real-=1
+                boom=BoomPlayLan(self.X-10,self.Y-5)
+                boom.sound.play()
+                boom.time = pygame.time.get_ticks()
+                self.boom.append(boom)
+                b1=pygame.sprite.Group()
+                b1.add(boom)
+                self.boom_sprite.append(b1)
