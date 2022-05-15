@@ -4,6 +4,7 @@ import pygame
 
 
 class BanerInfo():
+    '''Bảng hiển thị thông tin người chơi'''
     def __init__(self, player,map) -> None:
         self.font = pygame.font.Font('freesansbold.ttf', 15)
         self.player=player
@@ -52,4 +53,3 @@ class BanerInfoBot(BanerInfo):
         super().__init__(player, map)
         self.y=130
         self.bg=None
- 

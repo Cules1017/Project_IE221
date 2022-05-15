@@ -3,6 +3,7 @@ from exploy import *
 import random
 
 class Boom(pygame.sprite.Sprite):
+    '''Bomm trong game'''
     def __init__(self, pos_x, pos_y):
         super().__init__()
         self.X=pos_x
@@ -77,6 +78,7 @@ class Boom(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.topleft = [self.X,self.Y]
 class BoomPlayLan(Boom):
+    '''Boom trong màn chơi qua LAN'''
     def __init__(self, pos_x, pos_y):
         super().__init__(pos_x, pos_y)
     def destroy(self, barri,player):

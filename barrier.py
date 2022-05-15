@@ -5,6 +5,7 @@ import pygame
 #TYPE 3: Vật thể cứng kh thể di chuyển không thể phá hủy
 
 class Barrier():
+    '''Vật thể ngăn cản'''
     def __init__(self, pos_x, pos_y):
         self.X=pos_x
         self.Y=pos_y
@@ -15,6 +16,7 @@ class Barrier():
         screen.blit(self.image,(col*50,row*50))
 
 class Brick(Barrier):
+    '''Gạch có thể phá vỡ'''
     def __init__(self, pos_x, pos_y):
         super().__init__(pos_x, pos_y)
         self.type=2
@@ -23,6 +25,7 @@ class Brick(Barrier):
         self.rect = self.image.get_rect()
         self.rect.topleft = [self.X,self.Y]
 class Stone(Barrier):
+    '''Gạch đá không thể phá vỡ'''
     def __init__(self, pos_x, pos_y):
         super().__init__(pos_x, pos_y)
         self.type=3
@@ -31,6 +34,7 @@ class Stone(Barrier):
         self.rect.topleft = [self.X,self.Y]
 
 class Stone1(Barrier):
+    '''Đá tản không thể phá vỡ'''
     def __init__(self, pos_x, pos_y):
         super().__init__(pos_x, pos_y)
         self.type=3
@@ -38,6 +42,7 @@ class Stone1(Barrier):
         self.rect = self.image.get_rect()
         self.rect.topleft = [self.X,self.Y]
 class Sandgrey_bg(Barrier):
+    '''Nền cỏ'''
     def __init__(self, pos_x, pos_y):
         super().__init__(pos_x, pos_y)
         self.type=1
