@@ -3,7 +3,19 @@ from exploy import *
 import random
 
 class Boom(pygame.sprite.Sprite):
-    '''Bomm trong game'''
+    '''Bomm trong game
+        self.X=tọa độ x của boom
+        self.Y=tọa độ y của boom
+        self.power_explo: độ lớn của vụ nổ
+        self.WIDTH=kích thước của bomm
+        self.HEIGHT=kích thước của bomm
+        self.time=Thời gian boom bắt đầu nổ
+        self.exploy_boom=Vụ nổ gây ra
+        self.sound : âm thanh boom nổ
+
+
+        self.boom_animation: hoạt ảnh bom đang cháy
+    '''
     def __init__(self, pos_x, pos_y):
         super().__init__()
         self.X=pos_x
@@ -29,11 +41,20 @@ class Boom(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.topleft = [self.X,self.Y]
     def destroyPL(self,player):
+        '''
+        Boom tác động trừ máu player
+        trừ 20 máu mỗi lần trúng
+        '''
         if self.exploy_boom!=None:
             #print(player.name)
             if self.exploy_boom.rect.colliderect(player):
                 player.being_attacked(20)
     def destroy(self, barri,player):
+        '''
+        Phá hủy
+        Phá hủy , tiêu diệt quái 
+        đồng thời tính toán cho phép các vật phẩm rơi ra
+        '''
         # print(self.exploy_boom!=None )
         if self.exploy_boom!=None:
             #print(player.name)
@@ -64,6 +85,12 @@ class Boom(pygame.sprite.Sprite):
             #self.exploy_boom=None
                 
     def update(self,second,screen):
+        '''
+        Update
+        Kiểm tra thời gian boom nổ
+        cho phép xảy ra vụ nổ 
+        qui định cái hoạt ảnh boom nổ
+        '''
         if self.time is not None:
             if pygame.time.get_ticks() - self.time >= 1700:
                 self.exploy_boom=boom1_exploy(self.X,self.Y,self.power_explo)

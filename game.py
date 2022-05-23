@@ -151,7 +151,9 @@ class Kill_mons(game):
         self.Panel_Pl4=None
         self.pointWin=10 #10
     def ingameLOGIC(self):
-
+        """
+        Xử lý các logic trong game
+        """
         for event in pygame.event.get():
             if event.type==pygame.QUIT:
                 pygame.quit()
@@ -167,16 +169,29 @@ class Kill_mons(game):
             self.Player1.speed=0
             
     def checkWin(self):
+        """
+        Kiểm tra win game khi đủ điều kiện
+        """
         if self.pointWin<=self.Player1.point:
             return True
     def checkGameOver(self):
+        """
+        Kiểm tra thua game
+        """
         if self.pointWin>self.Player1.point and self.Player1.boom_real==0:
             return True
         if self.Player1.checkdie():
             return True
     def startgame(self):
+        """
+        Bắt đầu game
+         Vẽ máp vẽ quái
+        """
         self.mapGame.render_enemy()
     def drawWindow(self,screen):
+        """
+        Vẽ hoạt ảnh game
+        """
         screen.fill((125,155,255))
         self.mapGame.draw(screen)
         self.Player1.draw(screen)

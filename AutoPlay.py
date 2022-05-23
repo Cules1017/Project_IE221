@@ -2,6 +2,19 @@ from boomman import *
 class autoplay(Player):
     '''Các player tự động chơi'''
     def __init__(self, pos_x, pos_y):
+        '''
+        Nhân vật máy tự động được kế thừa từ Player
+        self.redirect: chuyển hướng di chuyển
+        self.decideBoom: quyết định đặt boom trong một số trường hợp
+        self.name: Tên của nhân vật
+        self.boom: chứa mảng boom của nhân vật khi đặt ra
+        self.heath: máu nhân vật quyết định sống chết
+        self.last_put: thời gian đặt boom cuối cùng
+        self.last_turn: lần quay cuối cùng
+        self.now1: thời gian hiện tại
+
+        self.run_animation: hoạt ảnh của nhân vật
+        '''
         super().__init__(pos_x, pos_y)
         self.redirect=random.randint(1,4)
         self.decideBoom=random.randint(0,2)
@@ -44,17 +57,29 @@ class autoplay(Player):
         self.run_animation.append(pygame.image.load('asset/Player 3/44.gif').convert_alpha())
         self.run_animation.append(pygame.image.load('asset/Player 3/45.gif').convert_alpha())
     def put_boomAuto(self):
-            if len(self.boom)<=self.boom_num:
-                self.boom_real-=1
-                boom=Boom(self.X-10,self.Y-5)
-                boom.sound.play()
-                boom.time = pygame.time.get_ticks()
-                self.boom.append(boom)
-                b1=pygame.sprite.Group()
-                b1.add(boom)
-                self.boom_sprite.append(b1)
-                self.last_put=self.now
+        '''
+            Hàm tự động đặt boom
+            Kiểm tra số boom trước khi đặt 
+            phát âm thanh 
+            thêm boom vào mảng boom của nhân vật
+        '''
+        if len(self.boom)<=self.boom_num:
+            self.boom_real-=1
+            boom=Boom(self.X-10,self.Y-5)
+            boom.sound.play()
+            boom.time = pygame.time.get_ticks()
+            self.boom.append(boom)
+            b1=pygame.sprite.Group()
+            b1.add(boom)
+            self.boom_sprite.append(b1)
+            self.last_put=self.now
     def automove(self,map,*players):
+        '''
+        Hàm tự động di chuyển
+        check xem nhân vật có va chạm tường hay không và chuyển hướng di chuyển
+        Và thực hiện tính toán việc đặt bomm
+         đồng thời check xem có bị trúng boom hay không
+        '''
         orig_x=self.X
         orig_y=self.Y
         if self.redirect==1:# and self.X>=60:
@@ -150,6 +175,11 @@ class autoplay(Player):
                 self.redirect=random.randint(1,4)
         self.checkboom(players,map,orig_x,orig_y)
 class autoPlay1(autoplay):
+    '''
+    Kế thừa từ autoPlay nhưng đổi một số thuộc tính như:
+    + Tên
+    + Màu sắc
+    '''
     def __init__(self, pos_x, pos_y):
         super().__init__(pos_x, pos_y)
         self.run_animation=[]
@@ -184,6 +214,11 @@ class autoPlay1(autoplay):
         self.run_animation.append(pygame.image.load('asset/Player 2/44.gif').convert_alpha())
         self.run_animation.append(pygame.image.load('asset/Player 2/45.gif').convert_alpha())
 class autoPlay2(autoplay):
+    '''
+    Kế thừa từ autoPlay nhưng đổi một số thuộc tính như:
+    + Tên
+    + Màu sắc
+    '''
     def __init__(self, pos_x, pos_y):
         super().__init__(pos_x, pos_y)
         self.run_animation=[]

@@ -26,6 +26,9 @@ class boom1_exploy(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.center = [self.X,self.Y]
     def update(self,second):
+        """
+        Cập nhật liên tục hình ảnh của vụ nổ
+        """
         self.current_animation+=second
         if int(self.current_animation) > 4:
             self.kill()
@@ -33,6 +36,9 @@ class boom1_exploy(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.topleft = [self.X,self.Y]
     def draw(self, screen):
+        """
+        Vẽ vụ nổ ra màn hình game
+        """
         exploy=pygame.sprite.Group()
         exploy.add(self)
         exploy.update(2)
