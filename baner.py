@@ -6,6 +6,27 @@ import pygame
 class BanerInfo():
     '''Bảng hiển thị thông tin người chơi'''
     def __init__(self, player,map) -> None:
+        '''
+        self.font: Qui định font chữ trên panel
+        self.player: Người chơi mà panel hiển thị
+        self.map: Thông tin map của màn chơi hiện tại
+        self.name: Thuộc tính tên nhân vật
+        self.heath: Lượng máu nhân vật
+        self.heath_icon: icon thể hiện biếu tượng máu
+        self.speed: tốc độ nhân vật
+        self.speed_icon: icon thể hiện tốc độ nhân vật
+        self.boom: số boom còn lại của nhân vật
+        self.boom_icon: thiện thị biểu tượng thể hiện boom
+        self.point: số điểm cũa player
+        self.point_icon: biểu tượng thể hiện túi tiền
+        self.x: vị trí X hiển thị panel
+        self.y: vị trí Y hiển thị panel
+        self.WIDTH: Kích thước Panel
+        self.HEIGTH: Kích thước Panel
+        self.avata: hình ảnh tượng trưng cho nhân vật
+        self.bg: Hình ảnh nền của khung hiển thi
+        self.display_player
+        '''
         self.font = pygame.font.Font('freesansbold.ttf', 15)
         self.player=player
         self.map=map
@@ -26,11 +47,17 @@ class BanerInfo():
         self.bg=pygame.transform.scale(pygame.image.load('asset/banner/bg.gif'),(250,700))
         self.display_player=pygame.transform.scale(pygame.image.load('asset/banner/Cardgreen.gif'),(self.WIDTH,self.HEIGTH))
     def update(self,player):
+        '''
+        Cập nhật và render các thông số nhân vật
+        '''
         self.heath=self.font.render(str(player.heath), True,(33,31,88))
         self.speed=self.font.render(str(player.speed), True,(33,31,88))
         self.boom=self.font.render(str(player.boom_real), True,(33,31,88))
         self.point=self.font.render(str(player.point), True,(33,31,88))
     def draw(self, screen):
+        '''
+        Vẽ các thông tin lên màn hình
+        '''
         if self.bg!=None:
             screen.blit(self.bg,(self.x,self.y))
         screen.blit(self.display_player,(self.x+5,self.y+105))
@@ -49,6 +76,10 @@ class BanerInfo():
         # screen.blit(self.name,(self.x+45,self.y+212))
         # screen.blit(self.name,(self.x+45,self.y+212))
 class BanerInfoBot(BanerInfo):
+    '''
+    Một loại panel hiển thị thông tin của Bot
+    Được kế thừa từ BanerInfor
+    '''
     def __init__(self, player, map) -> None:
         super().__init__(player, map)
         self.y=130

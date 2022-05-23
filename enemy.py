@@ -8,6 +8,17 @@ class fire():
     '''Quái vật trong game
     Làm mất máu
     có thể sinh ra tiền sau khi bị giết
+        self.X=Tọa độ quái
+        self.Y=Tọa độ quái
+        self.heath=sức mạnh quái
+        self.WIDTH=kích thước quái
+        self.HEIGHT=kích thước quái
+        self.speed=tốc độ quái vật
+        self.action=hành động quái
+        self.damage=sát thương gây ra khi tấn công
+        self.sound_attack=âm thanh khi tấn công nhân vật
+        self.image=hình ảnh
+        self.rect =khối bao quanh để xử lý va chạm
     '''
     def __init__(self,pos_x,pos_y):
         self.X=pos_x
@@ -24,10 +35,12 @@ class fire():
         self.rect.topleft= [self.X,self.Y]
     
     def acttack(self,player):
+        ''' Tấn công player'''
         if self.rect.colliderect(player):
             self.sound_attack.play()
             player.being_attacked(self.damage)
     def move(self,map):
+        '''Hàm di chuyển của quái'''
         if self.action==1:
             self.X=self.X
             self.Y=self.Y+self.speed*-1
@@ -65,6 +78,7 @@ class fire():
                 elif self.action==2:
                     self.action=1
     def draw(self,screen,map):
+        ''' Vẽ hình ảnh của quái ra mành hình'''
         screen.blit(self.image,(self.X,self.Y))
         self.move(map)
         

@@ -4,7 +4,25 @@ from boom import *
 
 
 class Player(pygame.sprite.Sprite):
-    ''' Nhân vật trong game'''
+    ''' Nhân vật trong game
+        self.X=tọa độ nhân vật
+        self.Y=tọa độ nhân vật
+        self.name=tên nhân vật
+        self.heath=sức khỏe của nhân vật
+        self.speed=Tốc độ của nhân vật
+        self.point=Điểm của nhân vật
+        self.WIDTH=Kích thước nhân vật
+        self.HEIGHT=Kích thước nhân vật
+        self.boom_num=số boom của nhân vật được qui định 
+        self.boom_real=số boomn còn lại thực tế của nhân vật
+        self.boom=danh sách các boom của nhân vật đã đặt
+        self.boom_sprite=[]
+
+        self.run_animation=[]
+
+        self.action: qui định lưu trữ hình ảnh nhân vật
+    
+    '''
     def __init__(self, pos_x, pos_y):
         super().__init__()
         self.X=pos_x
@@ -60,6 +78,10 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.topleft= [self.X,self.Y]
     def draw(self,screen):
+        '''
+        Vẽ nhân vật 
+        Vẽ boom của nhân vật ra màn hình
+        '''
         player_idle=pygame.sprite.Group()
         player_idle.add(self)
         player_idle.update(0.5)
@@ -70,13 +92,22 @@ class Player(pygame.sprite.Sprite):
 
 
     def walk_TopBottom(self,n):
-            self.rect.topleft=[self.X+0,self.Y+self.speed*n]
-            self.Y+=self.speed*n
+        '''
+        Di chuyển nhân vật theo chiều lên xuống
+        '''
+        self.rect.topleft=[self.X+0,self.Y+self.speed*n]
+        self.Y+=self.speed*n
     def walk_Left_Right(self,n):
-            self.rect.topleft=[self.X+self.speed*n,self.Y]
-            self.X+=self.speed*n
+        '''
+        Di chuyển nhân vật theo chiều trái phải
+        '''
+        self.rect.topleft=[self.X+self.speed*n,self.Y]
+        self.X+=self.speed*n
 
     def checkboom(self,players,map,x,y):
+        '''
+        Check xem nhân vật có va phải boom nổ
+        '''
         orig_x=x
         orig_y=y
         for b in self.boom:
@@ -91,6 +122,13 @@ class Player(pygame.sprite.Sprite):
                 b.destroyPL(self)
     #Set up moverment
     def move(self,map,*players):
+        '''
+        Hàm di chuyển 
+        Di chuyển theo các nút qui định
+        Kiểm tra các giới hạn
+        xem có đi trúng quái => trừ máu
+        Có đi trúng tường hay không
+        '''
         orig_x=self.X
         orig_y=self.Y
         keys = pygame.key.get_pressed() 
@@ -164,6 +202,9 @@ class Player(pygame.sprite.Sprite):
     
     
     def put_boom(self,event):
+        '''
+         Đặt boom khi ấn nút đã qui định
+        '''
         if event.key==pygame.K_SPACE:
             if len(self.boom)<=self.boom_num:
                 self.boom_real-=1
@@ -176,8 +217,14 @@ class Player(pygame.sprite.Sprite):
                 self.boom_sprite.append(b1)
                 
     def being_attacked(self,damage):
+        '''
+        Bị quái tấn công trừ máu liên tục theo sát thương quái gây ra
+        '''
         self.heath-=damage
     def animation(self,second):
+        """
+        Điều chỉnh kiểm tra các hoạt ảnh 
+        """
         if self.action==0:
             self.current_run=self.current_run
         if self.action==1:
@@ -207,15 +254,26 @@ class Player(pygame.sprite.Sprite):
         self.image = pygame.transform.smoothscale(self.run_animation[int(self.current_run)], (self.WIDTH,self.HEIGHT))
     
     def checkdie(self):
+        """
+        Kiểm tra nhân vật còn máu hay không
+        """
         if self.heath<=0:
             self.action=5
             return True
         return False
     def update(self,second):
+        """
+        cập nhật hoạt ảnh nh6n vật theo thời gian
+        """
         self.animation(second)
 
 
 class PlayerTwo(Player):
+    """
+    Nhân vật kế thừa từ player
+    Có overwrite một số hàm như là hàm move với các phím di chuyển khác so với 
+    Player ban đầu
+    """
     def __init__(self, pos_x, pos_y):
         super().__init__(pos_x, pos_y)
         self.name="BLUE"
@@ -329,6 +387,11 @@ class PlayerTwo(Player):
                 b1.add(boom)
                 self.boom_sprite.append(b1)
 class PlayerLan(Player):
+    """
+    Nhân vật kế thừa từ player
+    Có overwrite một số hàm như là hàm move với các phím di chuyển khác so với 
+    Player ban đầu
+    """
     def __init__(self, pos_x, pos_y,type):
         super().__init__(pos_x, pos_y)
         self.name="BLUE"

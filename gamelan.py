@@ -10,8 +10,11 @@ from AutoPlay import*
 import random
 from serve import *
 print(sequence_num)
-
-
+###################################
+#######                    ########
+#######  TEST GAME QUA LAN ########
+#######                    ########
+###################################
 pygame.init()
 screen=pygame.display.set_mode((1300,700))
 pygame.display.set_caption("Game Đặt Boomm")

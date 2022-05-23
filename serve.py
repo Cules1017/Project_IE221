@@ -30,6 +30,9 @@ class Server():
         self.OnReceive -= objMethod
 
     def sendData(self,Data):
+        """
+        Gởi data sang Client
+        """
         Data= pickle.dumps(Data)
         self.conn.sendall(Data)
         print("Serve gởi đi")
@@ -51,6 +54,9 @@ class Server():
     def stop(self):
         pass
     def startServer(self):
+        """
+        Mở thêm một luồng mới để trao đổi dữ liệu
+        """
         try:
             self.t1 = threading.Thread(target=self.Start,args=(self.HOST,self.Datagame,self.PORT,self.OnReceive))
             self.t1.start()

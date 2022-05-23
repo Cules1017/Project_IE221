@@ -5,7 +5,13 @@ import pygame
 #TYPE 3: Vật thể cứng kh thể di chuyển không thể phá hủy
 
 class Barrier():
-    '''Vật thể ngăn cản'''
+    '''Vật thể ngăn cản
+        self.X=tọa độ của X
+        self.Y=tọa độ của Y
+        self.type: loại vật thể
+        self.heath: sức mạnh vật thể
+        self.image: hình ảnh thể hiện
+    '''
     def __init__(self, pos_x, pos_y):
         self.X=pos_x
         self.Y=pos_y
@@ -13,10 +19,18 @@ class Barrier():
         self.heath=None
         self.image=None
     def draw(self,screen,col,row):
+        '''
+        Vẽ vật thể lên màn hình 
+        các tọa độ x y của vật thể là tọa độ trên ma trận
+        nên khi vẽ ra phải nhân lên 50( kích thước từng ô là 50)
+        '''
         screen.blit(self.image,(col*50,row*50))
 
 class Brick(Barrier):
-    '''Gạch có thể phá vỡ'''
+    '''Gạch có thể phá vỡ
+    self.rect: khối bao bọc vật thể để xử lý va chạm
+    self.rect.topleft: vị trí kíc thước
+    '''
     def __init__(self, pos_x, pos_y):
         super().__init__(pos_x, pos_y)
         self.type=2
